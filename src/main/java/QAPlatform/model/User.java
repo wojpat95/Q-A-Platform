@@ -12,6 +12,9 @@ public class User {
     private String passwordConfirm;
     private Set<Role> roles;
 
+    @OneToMany(mappedBy="users")
+    private Set<Question> questions;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
