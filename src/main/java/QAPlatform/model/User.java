@@ -20,6 +20,9 @@ public class User {
     /**
     * @return identyfikator użytkownika
     */
+    @OneToMany(mappedBy="users")
+    private Set<Question> questions;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
