@@ -10,6 +10,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Klasa będąca modelem pytań.
+ * @author Bartosz Gierczak
+ */
 @Entity
 @Table(name = "questions")
 public class Question {
@@ -21,23 +25,13 @@ public class Question {
 	private String body;
 	private long likes;
 	private long dislikes;
+	private String Category;
+	//private String Time;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinTable(name = "user_question", joinColumns = @JoinColumn(name = "question_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private User user;
 	
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
 	/**
 	 * @param id
 	 * @param topic
@@ -52,6 +46,7 @@ public class Question {
 		this.dislikes = dislikes;
 		this.user = user;
 	}
+
 	public Question() {
 		this.topic = "";
 		this.body = "";
@@ -60,64 +55,88 @@ public class Question {
 		this.user = null;
 	}
 	/**
-	 * @return the id
+	 * @return użytkownik który zadał pytanie
+	 */
+	public User getUser() {
+		return user;
+	}
+	/**
+	 * @param user użytkownik, który ustawiony będzie jako właściciel pytania
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+	/**
+	 * @return identyfikator użytkownika
 	 */
 	public long getId() {
 		return id;
 	}
 	/**
-	 * @param id the id to set
+	 * @param id identyfikator do ustawienia
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 	/**
-	 * @return the topic
+	 * @return temat pytania
 	 */
 	public String getTopic() {
 		return topic;
 	}
 	/**
-	 * @param topic the topic to set
+	 * @param topic temat do ustawienia
 	 */
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
 	/**
-	 * @return the body
+	 * @return ciało pytania
 	 */
 	public String getBody() {
 		return body;
 	}
 	/**
-	 * @param body the body to set
+	 * @param body ciało do ustawienia
 	 */
 	public void setBody(String body) {
 		this.body = body;
 	}
 	/**
-	 * @return the likes
+	 * @return liczba polubień
 	 */
 	public long getLikes() {
 		return likes;
 	}
 	/**
-	 * @param likes the likes to set
+	 * @param likes liczba polubień do ustawienia
 	 */
 	public void setLikes(long likes) {
 		this.likes = likes;
 	}
 	/**
-	 * @return the dislikes
+	 * @return liczba nielubiących
 	 */
 	public long getDislikes() {
 		return dislikes;
 	}
 	/**
-	 * @param dislikes the dislikes to set
+	 * @param dislikes liczba nielubiącyh do ustawienia
 	 */
 	public void setDislikes(long dislikes) {
 		this.dislikes = dislikes;
+	}
+	/**
+	 * @return zwraca kategorię
+	 */
+	public String getCategory() {
+		return Category;
+	}
+	/**
+	 * @param category ustawia kategorię
+	 */
+	public void setCategory(String category) {
+		Category = category;
 	}
 	
 }
