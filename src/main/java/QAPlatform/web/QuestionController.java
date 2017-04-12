@@ -2,6 +2,7 @@ package QAPlatform.web;
 
 import QAPlatform.model.Question;
 import QAPlatform.service.*;
+import QAPlatform.validator.QuestionValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +26,8 @@ public class QuestionController {
 	@Autowired
     private UserService userService;	
 
+	@Autowired
+	private QuestionValidator questionValidator;
 	/**
 	 * @return widok formularza słuzącego do dodawania pytań
 	 */
@@ -40,6 +43,9 @@ public class QuestionController {
 	 */
 	@RequestMapping(value="/newQuestion",method =RequestMethod.POST)
 	public String newQuestion(@ModelAttribute("newquestion") Question question, BindingResult result){
+		
+		questionValidator.validate(question, result);
+		
 		if(result.hasErrors()){
 			return "newQuestion";
 		}		
