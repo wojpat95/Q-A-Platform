@@ -1,14 +1,10 @@
 package QAPlatform.web;
 
-import QAPlatform.model.Question;
 import QAPlatform.model.User;
 import QAPlatform.service.*;
 import QAPlatform.validator.*;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,9 +22,6 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
-    
-    @Autowired
-    private QuestionService questionService;
     
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -49,7 +42,7 @@ public class UserController {
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
         
-        return "redirect:/welcome";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -61,14 +54,5 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
-    }
-
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-    	
-    	questionService.addQuestion(new Question("Question1","Body of question1",0,0, 
-    			userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName())));
-        model.addAttribute("questions",questionService.getAllQuestions());
-    	return "welcome";
     }
 }
