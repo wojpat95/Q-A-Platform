@@ -30,6 +30,8 @@ public class UserController {
     
 
     /**
+     * @param model
+     *      model uytkownika
 	 * @return widok formularza słuzącego do dodawania rejestracji
 	 */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -41,6 +43,12 @@ public class UserController {
 
     /**
      * Obsługa formularza rejestracji
+     * @param userForm
+     *      formularz uzytkownika
+     * @param bindingResult
+     *      rezulatat łączenia danych z modelem
+     * @param model
+     *      model uzytkownika
 	 * @return widok formularza słuzącego do rejestracji wraz z błędami w przypadku niepowodzenia lub strona główna w przypadku pomyślnej operacji
 	 */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -59,6 +67,12 @@ public class UserController {
     }
 
     /**
+     * @param model
+     *      model uzytkownika
+     * @param error
+     *      błędy
+     * @param logout
+     *      czy wylogowano
 	 * @return widok formularza słuzącego do logowania i ewentualne błędy
 	 */
     @RequestMapping(value = "/login", method = RequestMethod.GET)

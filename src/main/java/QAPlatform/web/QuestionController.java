@@ -26,6 +26,8 @@ public class QuestionController {
     private UserService userService;	
 
 	/**
+	 * @param model
+	 * 		model pytania
 	 * @return widok formularza słuzącego do dodawania pytań
 	 */
 	@RequestMapping(value="/newQuestion", method = RequestMethod.GET)
@@ -36,6 +38,10 @@ public class QuestionController {
 	
 	/**
 	 * Obsługa formularza dodawania pytań
+	 * @param question
+	 * 		zadane pytanie
+	 * @param result
+	 * 		rezultat łączenia danych z modelem
 	 * @return widok formularza słuzącego do dodawania pytań wraz z błędami w wypadu niepowodzenia lub strona główna, w przypadku pomyślnej operacji
 	 */
 	@RequestMapping(value="/newQuestion",method =RequestMethod.POST)
