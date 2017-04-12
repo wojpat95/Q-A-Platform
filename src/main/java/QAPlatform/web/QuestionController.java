@@ -12,20 +12,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+/**
+ * Klasa będąca kontrolerem pytań.
+ * @author Ahmad Anadani
+ */
+
 @Controller
 public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 
 	@Autowired
-    private UserService userService;
-	
+    private UserService userService;	
+
+	/**
+	 * @return widok formularza słuzącego do dodawania pytań
+	 */
 	@RequestMapping(value="/newQuestion", method = RequestMethod.GET)
 	public String newQuestion(Model model){
 		model.addAttribute("newquestion", new Question()); 
 		return "newQuestion";
 	}
 	
+	/**
+	 * Obsługa formularza dodawania pytań
+	 * @return widok formularza słuzącego do dodawania pytań wraz z błędami w wypadu niepowodzenia lub strona główna, w przypadku pomyślnej operacji
+	 */
 	@RequestMapping(value="/newQuestion",method =RequestMethod.POST)
 	public String newQuestion(@ModelAttribute("newquestion") Question question, BindingResult result){
 		if(result.hasErrors()){
