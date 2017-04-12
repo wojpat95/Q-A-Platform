@@ -21,6 +21,8 @@ public class HomeController {
 	private QuestionService questionService;
 
 	/**
+	 * @param model
+	 * 		model zawierający listę pytań
 	 * @return widok strony głównej z listą wszystkich zadanych pytań
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
