@@ -33,11 +33,11 @@ public class Question {
 	private User user;
 	
 	/**
-	 * @param id
-	 * @param topic
-	 * @param body
-	 * @param likes
-	 * @param dislikes
+	 * @param topic temat pytania
+	 * @param body ciało pytania
+	 * @param likes liczba polubień pytania
+	 * @param dislikes liczba niepolubień pytania
+	 * @param user użytkownik, który zadał pytanie
 	 */
 	public Question(String topic, String body, long likes, long dislikes,User user) {
 		this.topic = topic;
