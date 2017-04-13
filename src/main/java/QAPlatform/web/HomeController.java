@@ -19,6 +19,7 @@ public class HomeController {
 	public String home(Model model){
 		List<Question> questions = null;
 		questions = questionService.getAllQuestions();
+		System.out.println(questions.toString());
 		model.addAttribute("AllQuestions", questions);
 		return "home";
 	}

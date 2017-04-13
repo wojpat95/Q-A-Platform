@@ -33,6 +33,7 @@ public class QuestionController {
 		}		
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 		questionService.addQuestion(question);
+		System.out.println(question.getBody());
 
 		return "home";
 	}
