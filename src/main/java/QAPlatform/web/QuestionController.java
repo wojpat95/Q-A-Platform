@@ -54,11 +54,14 @@ public class QuestionController {
 		
 		if(result.hasErrors()){
 			return "newQuestion";
-		}		
+		}	
+
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+
 		questionService.addQuestion(question);
+		
 		System.out.println(question.getBody());
 
-		return "home";
+		return "redirect:/";
 	}
 }
