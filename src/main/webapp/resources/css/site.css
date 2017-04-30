@@ -1,0 +1,21 @@
+.register, .login
+{
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.register .panel-heading, .login .panel-heading
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+.errors.alert
+{
+    margin-top: 15px;
+}
+
+.errors{
+    display: block;
+}
