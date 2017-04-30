@@ -1,6 +1,3 @@
-/**
- * 
- */
 package QAPlatform.validator;
 
 import org.springframework.stereotype.Component;
@@ -10,10 +7,6 @@ import org.springframework.validation.Validator;
 
 import QAPlatform.model.Question;
 
-/**
- * @author root
- *
- */
 @Component
 public class QuestionValidator implements Validator{
 	

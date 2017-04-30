@@ -5,7 +5,19 @@
     margin-top: 100px;
 }
 
-.register .panel-heading, .login .panel-heading
+.content
+{
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.content h3{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.panel-heading
 {
     text-align: center;
     font-weight: bold;
@@ -18,4 +30,21 @@
 
 .errors{
     display: block;
+}
+
+.content .info
+{
+    position: relative;
+}
+
+.content .author
+{
+    position: absolute;
+    left: 0;
+}
+
+.content .time
+{
+    position: absolute;
+    right: 0;
 }
