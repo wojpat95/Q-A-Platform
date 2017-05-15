@@ -22,6 +22,9 @@ public class QuestionService {
 	@Autowired
 	private QuestionRepository questionRepository;
 	
+	public QuestionService(QuestionRepository qr){
+		questionRepository = qr;
+	}
 	public List<Question> getAllQuestions(){
 		List<Question> questions = new ArrayList<>();
 		questionRepository.findAll().forEach(questions::add);
