@@ -20,6 +20,9 @@ public class AnswerValidator implements Validator{
         Answer answer= (Answer) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "body", "NotEmpty");
+        if (answer.getBody().length() < 0) {
+            errors.rejectValue("body", "Size.newanswer.body");
+        }
         if (answer.getBody().length() > 1000) {
             errors.rejectValue("body", "Size.newanswer.body");
         }

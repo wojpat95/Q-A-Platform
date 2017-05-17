@@ -35,7 +35,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@RequestMapping(value="/fa", method = RequestMethod.GET)
 	public String home(Model model, @RequestParam("body") String body){
 		List<Question> questions = null;
 		Question question = new Question();

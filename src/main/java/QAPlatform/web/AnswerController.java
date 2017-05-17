@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Klasa będąca kontrolerem Odpowiedzi.
@@ -25,16 +26,22 @@ public class AnswerController {
 	private AnswerService answerService;
 	
 	@Autowired
+    private UserService userService;
+	
+	@Autowired
 	private AnswerValidator answerValidator;
 	
-	@RequestMapping(value="/newAnswer", method=RequestMethod.GET)
+	@RequestMapping(value="/Answer/new", method=RequestMethod.GET)
 	public String newAnswer(Model model){
+		
 		model.addAttribute("newanswer", new Answer());
 		return "newAnswer";
+		
 	}
 	
-	@RequestMapping(value="/newAnswer", method=RequestMethod.POST)
+	@RequestMapping(value="/Answer/new", method=RequestMethod.POST)
 	public String newAnswer(@ModelAttribute("newanswer") Answer answer, BindingResult result){
+		
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
@@ -44,30 +51,39 @@ public class AnswerController {
 		// PS: tutaj nie powinno setQuestion zeby ustawic odpowiedz do konkretnego pytania?
 		//answer.setQuestion()
 		
-		//answer.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-		//answerService.addAnswer(answer);
+		answer.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		answerService.addAnswer(answer);
 		
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/editAnswer",method=RequestMethod.GET)
-	public String editAnswer(Model model){
-		model.addAttribute("editanswer");
-		return "/editAnswer";
+	@RequestMapping(value="/Answer/edit/{id}",method=RequestMethod.GET)
+	public String editAnswer(@PathVariable("id") int id,Model model){
+		
+		model.addAttribute("editanswer",answerService.getAnswerById(id));
+		return "editAnswer";
+		
 	}
 	
-	@RequestMapping(value="/editAnswer",method=RequestMethod.POST)
-	public String editAnswer(@ModelAttribute("editanswer") Answer answer, @RequestParam("body") String body,
-			BindingResult result){
+	@RequestMapping(value="/Answer/edit/{id}",method=RequestMethod.POST)//czy id konieczne?
+	public String editAnswer(@ModelAttribute("editanswer") Answer answer, BindingResult result){
+		
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
 			return "editAnswer";
 		}
 		
-		answerService.editAnswer(answer,body);
+		answerService.addAnswer(answer);
 		
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/Answer/remove/{id}", method=RequestMethod.POST)
+	public String removeQuestion(@PathVariable("id") int id, BindingResult result){
+		
+		answerService.removeAnswer(id);
+		
+		return "redirect:/";
+	}
 }
