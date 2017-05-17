@@ -46,7 +46,7 @@ public class HomeController {
 	 * @return przekierowanie do strony głównej z listą wyszukiwanych pytań
 	 */
 	@RequestMapping(value="/search", method = RequestMethod.POST)
-	public String home(@RequestParam("body") String topic,Model model){
+	public String home(@RequestParam("search_expr") String topic,Model model){
 		
 		List<Question> questions = questionService.searchQuestionByTopic(topic);
 

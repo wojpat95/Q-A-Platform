@@ -2,16 +2,20 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:genericpage>
     <jsp:body>
         <jsp:include page="navbar.jsp" />
         <div class="content">   
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
-                </span>
+                <form:form class="form-inline" method="POST" action="${contextPath}/search">
+            
+	                <input type="text" name="search_expr" class="form-control" placeholder="Search for...">
+	                
+	                    <button class="btn btn-default" type="submit">Search</button>
+	                
+                </form:form>
         </div>      
         <br>            
             <c:forEach items="${AllQuestions}" var="question">
