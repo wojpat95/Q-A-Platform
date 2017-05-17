@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
+import static org.hamcrest.Matchers.*;
 
 public class HomeControllerTest {
     private MockMvc mockMvc;
@@ -45,35 +46,29 @@ public class HomeControllerTest {
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new HomeController()).build();
         questionRepositoryMock = mock(QuestionRepository.class);
-        questionServiceMock = new QuestionService(questionRepositoryMock);
+        questionServiceMock = mock(QuestionService.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(new HomeController(questionServiceMock)).build();
+
 
     }
 
     @Test
     public void homeTest() throws Exception {
-        User firstUser = new User();
-        firstUser.setPassword("123456789");
-        firstUser.setUsername("mockUser");
-        Question first = new Question("Mock topic 1", "Mock body 1", 1,1,firstUser);
-        first.setId(1);
-        Question second = new Question("Mock topic 2", "Mock body 2", 2,2,firstUser);
-        second.setId(2);
 
-//        List<Question> list = new ArrayList<Question>();
-//        list.add(mock(Question.class));
-//        list.add(mock(Question.class));
-
-       List<Question> list = new ArrayList<Question>();
-        list.add(first);
-        list.add(second);
+        List<Question> list = new ArrayList<Question>();
+        list.add(mock(Question.class));
+        list.add(mock(Question.class));
 
         when(questionRepositoryMock.findAll()).thenReturn(list);
         when(questionServiceMock.getAllQuestions()).thenReturn(list);
 
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(view().name("home"))
+                .andExpect(forwardedUrl("home"))
+                .andExpect(model().attribute("AllQuestions", hasSize(2)));
+
 
         verify(questionServiceMock, times(1)).getAllQuestions();
         verifyNoMoreInteractions(questionServiceMock);

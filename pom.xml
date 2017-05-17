@@ -58,6 +58,11 @@
     		<artifactId>spring-boot-starter-test</artifactId>
     		<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>1.7.0RC4</version>
+        </dependency>
 		
     </dependencies>
 
