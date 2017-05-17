@@ -59,6 +59,7 @@ public class QuestionService {
 		//questionRepository.findByid(question.getId());
 		question.setTopic(topic);
 		question.setBody(body);
+		questionRepository.save(question);
 		
 	}
 }
