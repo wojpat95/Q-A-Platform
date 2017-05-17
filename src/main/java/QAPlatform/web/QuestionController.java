@@ -62,4 +62,23 @@ public class QuestionController {
 
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/editQuestion",method=RequestMethod.GET)
+	public String editQuestion(Model model){
+		model.addattribute("editquestion"); // Bartek, czy tutaj powinno przekazac new Answer() ??
+		return "editQuestion";
+	}
+	
+	@RequestMapping(value="/editQuestion", method=RequestMethod.POST)
+	public String editQuestion(@ModelAttribute("editquestion") Question question, @RequestParam("topic") String topic,
+			@RequestParam("body") String body,BindingResult result){
+		questionValidator.validate(question,result);
+		if(result.hasErrors()){
+			return "editQuestion";
+		}
+		questionService.editQuestion(question,topic,body);
+		
+		return "redirect:/";
+	}
+	
 }
