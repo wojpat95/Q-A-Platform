@@ -3,6 +3,8 @@
  */
 package QAPlatform.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import QAPlatform.model.Question;
@@ -13,4 +15,5 @@ import QAPlatform.model.Question;
  */
 public interface QuestionRepository extends CrudRepository<Question,Long> {
 
+		List<Question> findByTopicIgnoreCaseContaining(String topic);
 }

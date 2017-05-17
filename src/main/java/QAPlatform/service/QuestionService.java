@@ -35,26 +35,8 @@ public class QuestionService {
 		return questionRepository.findOne((long)id);
 	}
 	
-	public List<Question> searchQuestionByTopic(Question qu){
-		List<Question> questions = getAllQuestions();
-		for(Question question : questions){
-			if(question.getTopic().equals(qu.getTopic())){
-				break;
-			}
-			questions.remove(questions.indexOf(question));
-		}
-		return questions;
-	}
-	
-	public List<Question> searchQuestionByBody(Question qu){
-		List<Question> questions = getAllQuestions();
-		for(Question question : questions){
-			if(question.getBody().toLowerCase().contains(qu.getBody().toLowerCase())){
-				break;
-			}
-			questions.remove(questions.indexOf(question));
-		}
-		return questions;
+	public List<Question> searchQuestionByTopic(String topic){
+		return questionRepository.findByTopicIgnoreCaseContaining(topic);
 	}
 	
 	public void addQuestion(Question question){

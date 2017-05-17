@@ -35,13 +35,11 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/fa", method = RequestMethod.GET)
-	public String home(Model model, @RequestParam("body") String body){
-		List<Question> questions = null;
-		Question question = new Question();
-		question.setBody(body);
-		questions = questionService.searchQuestionByBody(question);
-		System.out.println(questions.toString());
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public String home(@RequestParam("body") String topic,Model model){
+		
+		List<Question> questions = questionService.searchQuestionByTopic(topic);
+
 		model.addAttribute("AllQuestions", questions);
 		return "home";
 	}
