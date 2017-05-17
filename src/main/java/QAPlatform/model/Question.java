@@ -67,7 +67,7 @@ public class Question {
 		this.user = user;
 	}
 	/**
-	 * @return identyfikator użytkownika
+	 * @return identyfikator pytania
 	 */
 	public long getId() {
 		return id;
