@@ -6,12 +6,12 @@
 <t:genericpage>
     <jsp:body>
         <jsp:include page="navbar.jsp" />
-        <div class="content">            
+        <div class="content">                     
             <c:forEach items="${AllQuestions}" var="question">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="info">
-                            <div class="author"><c:out value="${question.getUser().getUsername()}" /></div>                            
+                            <div class="right"><c:out value="${question.getUser().getUsername()}" /></div>                            
                         </div>
                         <h3>
                             <c:out value="${question.topic}" />

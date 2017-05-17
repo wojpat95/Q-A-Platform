@@ -10,7 +10,8 @@
             <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="info">
-                            <div class="author">AUTOR</div>                            
+                            <div class="left"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                            <div class="right">AUTOR</div>                            
                         </div>
                         <h3>
                             TEMAT
@@ -21,9 +22,27 @@
                     </div>
             </div>    
             <ul class="list-group">
-                <li class="list-group-item"><div class="strong">Autor</div><div>ODPOWIEDZ1</div></li>
-                <li class="list-group-item"><div class="strong">Autor</div><div>ODPOWIEDZ2</div></li>
-                <li class="list-group-item"><div class="strong">Autor</div><div>ODPOWIEDZ3</div></li>
+                <li class="list-group-item">
+                    <div class="info">
+                            <div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                            <div class="left strong">AUTOR</div>                            
+                        </div>
+                    <div>ODPOWIEDZ1</div>
+                </li>
+                <li class="list-group-item">
+                    <div class="info">
+                            <div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                            <div class="left strong">AUTOR</div>                            
+                        </div>
+                    <div>ODPOWIEDZ2</div>
+                </li>   
+                <li class="list-group-item">
+                    <div class="info">
+                            <div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                            <div class="left strong">AUTOR</div>                            
+                        </div>
+                    <div>ODPOWIEDZ3</div>
+                </li>                   
             </ul>                                                                                                                                                    
             <form method="POST" modelAttribute="newanswer">                    
                         <div class="form-group">                            
@@ -31,7 +50,7 @@
                         </div>                    
 
                     <button type="submit" class="btn btn-default btn-block">Add Answer</button>
-            </form>            
+            </form>               
         </div>
     </jsp:body>
 </t:genericpage>

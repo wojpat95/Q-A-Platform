@@ -51,15 +51,20 @@
 .content .info
 {
     position: relative;
-}
-
-.content .author
-{
-    position: absolute;
-    right: 0;
+    padding-bottom: 30px;
 }
 
 .strong{
     font-weight: bold;
     padding-bottom: 5px;
+}
+
+.left{
+    position: absolute;
+    left: 0;
+}
+
+.right{
+    position: absolute;
+    right: 0;
 }
