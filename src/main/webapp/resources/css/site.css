@@ -1,15 +1,31 @@
 .register, .login
 {
-    width: 500px;
-    margin: 0 auto;
     margin-top: 100px;
+}
+
+@media screen and (min-width: 600px)
+{
+    .register, .login
+    {
+        width: 500px;
+        margin: 0 auto; 
+        margin-top: 100px;     
+    }
 }
 
 .content
 {
-    width: 600px;
-    margin: 0 auto;
     overflow: hidden;
+}
+
+@media screen and (min-width: 600px)
+{
+    .content
+    {
+        width: 600px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
 }
 
 .content h3{
@@ -40,11 +56,10 @@
 .content .author
 {
     position: absolute;
-    left: 0;
+    right: 0;
 }
 
-.content .time
-{
-    position: absolute;
-    right: 0;
+.strong{
+    font-weight: bold;
+    padding-bottom: 5px;
 }
