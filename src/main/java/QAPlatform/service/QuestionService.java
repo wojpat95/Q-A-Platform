@@ -31,8 +31,8 @@ public class QuestionService {
 		return questions;
 	}
 	
-	public Question getQuestionById(int id){
-		return questionRepository.findOne((long)id);
+	public Question getQuestionById(long id){
+		return questionRepository.findOne(id);
 	}
 	
 	public List<Question> searchQuestionByTopic(String topic){

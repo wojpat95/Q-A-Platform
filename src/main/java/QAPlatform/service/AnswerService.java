@@ -30,7 +30,9 @@ public class AnswerService{
 		return answers;
 	}
 	
-	
+	public List<Answer> getAllAnswersByQuestionId(long id){
+		return answerRepository.findById(id);
+	}
 	public void addAnswer(Answer an){
 		answerRepository.save(an);
 	}

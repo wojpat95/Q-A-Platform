@@ -1,8 +1,11 @@
 package QAPlatform.web;
 
 import QAPlatform.model.Answer;
+import QAPlatform.model.Question;
 import QAPlatform.service.*;
 import QAPlatform.validator.AnswerValidator;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,19 +29,32 @@ public class AnswerController {
 	private AnswerService answerService;
 	
 	@Autowired
+	private QuestionService questionService;
+	
+	@Autowired
     private UserService userService;
 	
 	@Autowired
 	private AnswerValidator answerValidator;
 	
-	@RequestMapping(value="/Answer/new", method=RequestMethod.GET)
-	public String newAnswer(Model model){
+	/*
+	 * wyświetlenie szczegółów pytania i odpowiedzi do niego
+	 */
+	@RequestMapping(value="/{topic}", method=RequestMethod.GET)
+	public String showAnswersToQuestion(@PathVariable("topic") String topic, @RequestParam("question_id")long id, Model model){
 		
+		List<Answer> answers = null;
+		answers = answerService.getAllAnswersByQuestionId(id);
+		
+		Question question = questionService.getQuestionById(id);
+		
+		model.addAttribute("allAnswers", answers);
+		model.addAttribute("question", question);
 		model.addAttribute("newanswer", new Answer());
-		return "newAnswer";
+		
+		return "questionAnswers";
 		
 	}
-	
 	@RequestMapping(value="/Answer/new", method=RequestMethod.POST)
 	public String newAnswer(@ModelAttribute("newanswer") Answer answer, BindingResult result){
 		
@@ -47,9 +63,6 @@ public class AnswerController {
 		if(result.hasErrors()){
 			return "newAnswer";
 		}
-		
-		// PS: tutaj nie powinno setQuestion zeby ustawic odpowiedz do konkretnego pytania?
-		//answer.setQuestion()
 		
 		answer.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 		answerService.addAnswer(answer);
