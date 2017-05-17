@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Klasa będąca głównym kontrolerem aplikacji.
@@ -39,17 +40,6 @@ public class HomeController {
 		List<Question> questions = null;
 		Question question = new Question();
 		question.setBody(body);
-		questions = questionService.searchQuestionByBody(question);
-		System.out.println(questions.toString());
-		model.addAttribute("AllQuestions", questions);
-		return "home";
-	}
-	
-	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String home(Model model, @RequestParam("topic") String topic){
-		List<Question> questions = null;
-		Question question = new Question();
-		question.setBody(topic);
 		questions = questionService.searchQuestionByBody(question);
 		System.out.println(questions.toString());
 		model.addAttribute("AllQuestions", questions);
