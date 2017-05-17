@@ -18,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-	@Autowired
-	private QuestionService questionService;
+	
+	private final QuestionService questionService;
 
+	@Autowired
+	public HomeController(QuestionService questionService) {
+		this.questionService = questionService;
+	}
 	/**
 	 * @param model
 	 * 		model zawierający listę pytań

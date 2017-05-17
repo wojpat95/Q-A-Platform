@@ -40,7 +40,7 @@ public class AnswerController {
 	/*
 	 * wyświetlenie szczegółów pytania i odpowiedzi do niego
 	 */
-	@RequestMapping(value="/{topic}", method=RequestMethod.GET)
+	@RequestMapping(value="/Question/{topic}", method=RequestMethod.GET)
 	public String showAnswersToQuestion(@PathVariable("topic") String topic, @RequestParam("question_id")long id, Model model){
 		
 		List<Answer> answers = null;
@@ -53,6 +53,14 @@ public class AnswerController {
 		model.addAttribute("newanswer", new Answer());
 		
 		return "questionAnswers";
+		
+	}
+	
+	@RequestMapping(value="/Answer/new", method=RequestMethod.GET)
+	public String newAnswer(Model model){
+		
+		
+		return "newAnswer";
 		
 	}
 	@RequestMapping(value="/Answer/new", method=RequestMethod.POST)
