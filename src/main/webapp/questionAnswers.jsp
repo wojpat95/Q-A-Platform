@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="info">
-                            <div class="left"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                            <div class="left"><a href="${contextPath}/Question/edit/${question.getId()}"><span class="glyphicon glyphicon-edit"></span></a></div>
                             <div class="right"><c:out value="${question.getUser().getUsername()}" /></div>                            
                         </div>
                         <h3>
@@ -26,7 +26,7 @@
             	<c:forEach items="${allAnswers}" var="answer">
             		<li class="list-group-item">
                 		<div class="info">
-                			<div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                			<div class="right"><a href="${contextPath}/Answer/edit/${answer.getId()}"><span class="glyphicon glyphicon-edit"></span></a></div>
                             <div class="left strong"><c:out value="${answer.getUser().getUsername()}" /></div>  
                 		</div>
                 		<div><c:out value="${answer.getBody()}" /></div>

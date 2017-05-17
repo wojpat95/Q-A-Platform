@@ -93,7 +93,7 @@ public class AnswerController {
 	@RequestMapping(value="/Answer/edit/{id}",method=RequestMethod.GET)
 	public String editAnswer(@PathVariable("id") int id,Model model){
 		
-		model.addAttribute("editanswer",answerService.getAnswerById(id));
+		model.addAttribute("editAnswer",answerService.getAnswerById(id));
 		return "editAnswer";
 		
 	}
@@ -105,18 +105,19 @@ public class AnswerController {
 	 * @return 
 	 * 				widok formularza służący do edytowania odpowiedzi
 	 */
-	@RequestMapping(value="/Answer/edit/{id}",method=RequestMethod.POST)//czy id konieczne?
-	public String editAnswer(@ModelAttribute("editanswer") Answer answer, BindingResult result){
+	@RequestMapping(value="/Answer/edit",method=RequestMethod.POST)
+	public String editAnswer(@ModelAttribute("editAnswer") Answer answer, BindingResult result){
 		
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
 			return "editAnswer";
 		}
-		
+		answer.setUser(answerService.getAnswerById(answer.getId()).getUser());
+		answer.setQuestion(answerService.getAnswerById(answer.getId()).getQuestion());
 		answerService.addAnswer(answer);
 		
-		return "redirect:/";
+		return "redirect:/Question/"+answer.getQuestion().getId();
 	}
 	
 	/**

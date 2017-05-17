@@ -26,8 +26,8 @@ public class AnswerService{
 		answerRepository.save(an);
 	}
 	
-	public Answer getAnswerById(int id){
-		return answerRepository.findOne((long)id);
+	public Answer getAnswerById(long id){
+		return answerRepository.findOne(id);
 	}
 	public void removeAnswer(int id){
 		answerRepository.delete((long)id);

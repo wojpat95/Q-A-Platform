@@ -82,7 +82,7 @@ public class QuestionController {
 	 * @param result rezultat łączenia danych z modelem
 	 * @return widok formularza służący do edycji pytania lub strona główna w przypadku pomyślnej operacji
 	 */
-	@RequestMapping(value="/Question/edit/{id}", method=RequestMethod.POST)//czy to {id} konieczne?
+	@RequestMapping(value="/Question/edit", method=RequestMethod.POST)//
 	public String editQuestion(@ModelAttribute("editquestion") Question question, BindingResult result){
 		
 		questionValidator.validate(question,result);
@@ -90,10 +90,10 @@ public class QuestionController {
 		if(result.hasErrors()){
 			return "editQuestion";
 		}
-		
+
 		questionService.addQuestion(question);
 		
-		return "redirect:/";
+		return "redirect:/Question/"+question.getId();
 	}
 	/**
 	 * @param id identyfikator pytania

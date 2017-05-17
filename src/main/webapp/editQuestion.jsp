@@ -13,12 +13,12 @@
                     </div>
 
                     <div class="panel-body">
-                        <form:form method="POST" modelAttribute="editquestion">
-
+                        <form:form method="POST" modelAttribute="editquestion" action="${contextPath}/Question/edit">
+							<input type="hidden" id="id" path="id" name="id" value="${editquestion.getId()}">
                             <spring:bind path="topic">
                                 <div class="form-group">
                                     <label for="topic">Topic:</label>
-                                    <form:input type="text" path="topic" class="form-control"></form:input>
+                                    <form:input type="text" path="topic" class="form-control" value="${editquestion.getTopic() }"></form:input>
                                     <form:errors path="topic" class="errors alert alert-danger"></form:errors>
                                 </div>
                             </spring:bind>
@@ -26,7 +26,7 @@
                             <spring:bind path="body">
                                 <div class="form-group">
                                     <label for="body">Body:</label>
-                                    <form:textarea id="body" path="body" type="text" class="form-control"></form:textarea>
+                                    <form:textarea id="body" path="body" type="text" class="form-control" value="${ editquestion.getBody()}"></form:textarea>
                                     <form:errors path="body" class="errors alert alert-danger"></form:errors>
                                 </div>
                             </spring:bind>
