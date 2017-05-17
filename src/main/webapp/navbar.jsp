@@ -9,7 +9,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="${url eq '/home.jsp' ? 'active' : ''}"><a href="${contextPath}/">Home</a></li>
-            <li class="${url eq '/newQuestion.jsp' ? 'active' : ''}"><a href="${contextPath}/newQuestion">Add question</a></li>
+            <li class="${url eq '/Question/new.jsp' ? 'active' : ''}"><a href="${contextPath}/Question/new">Add question</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${pageContext.request.userPrincipal.name != null}">

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Klasa będąca kontrolerem pytań.
@@ -33,7 +35,7 @@ public class QuestionController {
 	 * 		model pytania
 	 * @return widok formularza słuzącego do dodawania pytań
 	 */
-	@RequestMapping(value="/newQuestion", method = RequestMethod.GET)
+	@RequestMapping(value="/Question/new", method = RequestMethod.GET)
 	public String newQuestion(Model model){
 		model.addAttribute("newquestion", new Question()); 
 		return "newQuestion";
@@ -47,7 +49,7 @@ public class QuestionController {
 	 * 		rezultat łączenia danych z modelem
 	 * @return widok formularza słuzącego do dodawania pytań wraz z błędami w wypadu niepowodzenia lub strona główna, w przypadku pomyślnej operacji
 	 */
-	@RequestMapping(value="/newQuestion",method =RequestMethod.POST)
+	@RequestMapping(value="/Question/new",method =RequestMethod.POST)
 	public String newQuestion(@ModelAttribute("newquestion") Question question, BindingResult result){
 		
 		questionValidator.validate(question, result);
@@ -63,22 +65,32 @@ public class QuestionController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/editQuestion",method=RequestMethod.GET)
-	public String editQuestion(Model model){
-		model.addattribute("editquestion"); // Bartek, czy tutaj powinno przekazac new Answer() ??
+	@RequestMapping(value="/Question/edit/{id}",method=RequestMethod.GET)
+	public String editQuestion(@PathVariable("id") int id, Model model){
+		
+		model.addAttribute("editquestion",questionService.getQuestionById(id));
 		return "editQuestion";
+		
 	}
 	
-	@RequestMapping(value="/editQuestion", method=RequestMethod.POST)
-	public String editQuestion(@ModelAttribute("editquestion") Question question, @RequestParam("topic") String topic,
-			@RequestParam("body") String body,BindingResult result){
+	@RequestMapping(value="/Question/edit/{id}", method=RequestMethod.POST)//czy to {id} konieczne?
+	public String editQuestion(@ModelAttribute("editquestion") Question question, BindingResult result){
+		
 		questionValidator.validate(question,result);
+		
 		if(result.hasErrors()){
 			return "editQuestion";
 		}
-		questionService.editQuestion(question,topic,body);
+		
+		questionService.addQuestion(question);
 		
 		return "redirect:/";
 	}
-	
+	@RequestMapping(value="/Question/remove/{id}", method=RequestMethod.POST)
+	public String removeQuestion(@PathVariable("id") int id, BindingResult result){
+		
+		questionService.removeQuestion(id);
+		
+		return "redirect:/";
+	}
 }

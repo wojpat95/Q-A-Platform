@@ -31,34 +31,37 @@ public class QuestionService {
 		return questions;
 	}
 	
+	public Question getQuestionById(int id){
+		return questionRepository.findOne((long)id);
+	}
+	
 	public List<Question> searchQuestionByTopic(Question qu){
 		List<Question> questions = getAllQuestions();
 		for(Question question : questions){
-			if(question.getTopic().equals(qu.getTopic()){
+			if(question.getTopic().equals(qu.getTopic())){
 				break;
 			}
 			questions.remove(questions.indexOf(question));
 		}
+		return questions;
 	}
 	
 	public List<Question> searchQuestionByBody(Question qu){
 		List<Question> questions = getAllQuestions();
 		for(Question question : questions){
-			if(question.getBody().toLowerCase().contains(qu.getBody().toLowerCase()){
+			if(question.getBody().toLowerCase().contains(qu.getBody().toLowerCase())){
 				break;
 			}
 			questions.remove(questions.indexOf(question));
 		}
+		return questions;
 	}
 	
 	public void addQuestion(Question question){
 		questionRepository.save(question);
 	}
 	
-	public void editQuestion(Question question, String topic, String body){
-		//questionRepository.findByid(question.getId());
-		question.setTopic(topic);
-		question.setBody(body);
-		
+	public void removeQuestion(int id){
+		questionRepository.delete((long)id);
 	}
 }
