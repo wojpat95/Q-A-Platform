@@ -14,6 +14,10 @@ import QAPlatform.model.Question;
  * Repository interface.
  */
 public interface QuestionRepository extends CrudRepository<Question,Long> {
-
+		/**
+		 * Znajdowanie pytań o temacie, który zawiera dany ciąg znaków
+		 * @param topic Ciąg znaków, który chcemy znaleźć w temacie pytania
+		 * @return Lista pytań z szukaną frazą
+		 */
 		List<Question> findByTopicIgnoreCaseContaining(String topic);
 }

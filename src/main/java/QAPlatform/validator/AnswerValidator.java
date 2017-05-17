@@ -17,17 +17,17 @@ public class AnswerValidator implements Validator{
     
     @Override
     public void validate(Object o, Errors errors) {
-    	System.out.println("OK");
+
         Answer answer= (Answer) o;
-        System.out.println("OK");
+
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "body", "NotEmpty");
         if (answer.getBody().length() < 0) {
             errors.rejectValue("body", "Size.newanswer.body");
         }
-        System.out.println("OK");
+
         if (answer.getBody().length() > 1000) {
             errors.rejectValue("body", "Size.newanswer.body");
         }
-        System.out.println("OK");
+
     }
 }

@@ -22,8 +22,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class QuestionController {
+	
+	private final QuestionService questionService;
 	@Autowired
-	private QuestionService questionService;
+	public QuestionController(QuestionService questionService) {
+		this.questionService = questionService;
+	}
 
 	@Autowired
     private UserService userService;	

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +36,11 @@ public class AnswerController {
 	@Autowired
 	private AnswerValidator answerValidator;
 	
-	/*
-	 * wyświetlenie szczegółów pytania i odpowiedzi do niego
+	/**
+	 * Wyświetlenie pełnego pytania
+	 * @param id identyfikator pytania
+	 * @param model Model widoku
+	 * @return widok questionAnswers
 	 */
 	@RequestMapping(value="/Question/{id}", method=RequestMethod.GET)
 	public String showAnswersToQuestion(@PathVariable("id") int id, Model model){

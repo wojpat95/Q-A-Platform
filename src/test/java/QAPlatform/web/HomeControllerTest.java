@@ -29,8 +29,6 @@ import static org.hamcrest.Matchers.*;
 public class HomeControllerTest {
     private MockMvc mockMvc;
 
-//    @Autowired
-//    private WebApplicationContext webApplicationContext;
     @Autowired
     private QuestionService questionServiceMock;
 
@@ -62,7 +60,7 @@ public class HomeControllerTest {
 
         when(questionRepositoryMock.findAll()).thenReturn(list);
         when(questionServiceMock.getAllQuestions()).thenReturn(list);
-
+        
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("home"))
