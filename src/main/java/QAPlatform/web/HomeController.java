@@ -40,7 +40,11 @@ public class HomeController {
 		return "home";
 		
 	}
-	
+	/**
+	 * @param topic temat, wg którego wyszukiwane są pytania
+	 * @param model model pytania
+	 * @return przekierowanie do strony głównej z listą wyszukiwanych pytań
+	 */
 	@RequestMapping(value="/search", method = RequestMethod.POST)
 	public String home(@RequestParam("body") String topic,Model model){
 		

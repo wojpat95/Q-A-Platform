@@ -65,6 +65,11 @@ public class QuestionController {
 		return "redirect:/";
 	}
 	
+	/**
+	 * @param id identyfikator pytania
+	 * @param model model pytania
+	 * @return widok formularza służący do edycji pytania
+	 */
 	@RequestMapping(value="/Question/edit/{id}",method=RequestMethod.GET)
 	public String editQuestion(@PathVariable("id") int id, Model model){
 		
@@ -72,7 +77,11 @@ public class QuestionController {
 		return "editQuestion";
 		
 	}
-	
+	/**
+	 * @param question pytanie, które zostanie edytowane
+	 * @param result rezultat łączenia danych z modelem
+	 * @return widok formularza służący do edycji pytania lub strona główna w przypadku pomyślnej operacji
+	 */
 	@RequestMapping(value="/Question/edit/{id}", method=RequestMethod.POST)//czy to {id} konieczne?
 	public String editQuestion(@ModelAttribute("editquestion") Question question, BindingResult result){
 		
@@ -86,6 +95,11 @@ public class QuestionController {
 		
 		return "redirect:/";
 	}
+	/**
+	 * @param id identyfikator pytania
+	 * @param result rezultat łączenia danych z modelem
+	 * @return przekierowanie do strony głównej
+	 */
 	@RequestMapping(value="/Question/remove/{id}", method=RequestMethod.POST)
 	public String removeQuestion(@PathVariable("id") int id, BindingResult result){
 		

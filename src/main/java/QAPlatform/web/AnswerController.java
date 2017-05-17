@@ -55,7 +55,13 @@ public class AnswerController {
 		return "questionAnswers";
 		
 	}
-	
+	/**
+	 * 
+	 * @param model  
+	 * 				model odpowiedzi 
+	 * @return 
+	 * 				widok z formułarzem do udzielenia odpowiedzi
+	 */
 	@RequestMapping(value="/Answer/new", method=RequestMethod.GET)
 	public String newAnswer(Model model){
 		
@@ -63,6 +69,15 @@ public class AnswerController {
 		return "newAnswer";
 		
 	}
+	/**
+	 * Formuaarz do udzielenia odpowiedzi
+	 * @param answer 
+	 * 				model odpowiedzi
+	 * @param result 
+	 * 				rezultat łączenie danych z modelem
+	 * @return 
+	 * 				widok formularza do udzielenia odpowiedzi na zadane pytanie
+	 */
 	@RequestMapping(value="/Answer/new", method=RequestMethod.POST)
 	public String newAnswer(@ModelAttribute("newanswer") Answer answer, BindingResult result){
 		
@@ -77,7 +92,15 @@ public class AnswerController {
 		
 		return "redirect:/";
 	}
-	
+	/**
+	 * 
+	 * @param id 
+	 * 				identyfikator do edycji
+	 * @param model 
+	 * 				model zawierający pytanie, które zostaje edytowane
+	 * @return 
+	 * 				widok z formułarzem do edycji pytania
+	 */
 	@RequestMapping(value="/Answer/edit/{id}",method=RequestMethod.GET)
 	public String editAnswer(@PathVariable("id") int id,Model model){
 		
@@ -85,7 +108,14 @@ public class AnswerController {
 		return "editAnswer";
 		
 	}
-	
+	/**
+	 * @param answer 
+	 * 				odpowiedz, która zostanie edytowana
+	 * @param result 
+	 * 				rezultat łączenia danych z modelem
+	 * @return 
+	 * 				widok formularza służący do edytowania odpowiedzi
+	 */
 	@RequestMapping(value="/Answer/edit/{id}",method=RequestMethod.POST)//czy id konieczne?
 	public String editAnswer(@ModelAttribute("editanswer") Answer answer, BindingResult result){
 		
@@ -100,6 +130,14 @@ public class AnswerController {
 		return "redirect:/";
 	}
 	
+	/**
+	 * @param id 
+	 * 				identyfikator odpowiedzi
+	 * @param result 
+	 * 				rezultat łączenia danych z modelem
+	 * @return 
+	 * 				przekierowanie do strony głównej
+	 */
 	@RequestMapping(value="/Answer/remove/{id}", method=RequestMethod.POST)
 	public String removeQuestion(@PathVariable("id") int id, BindingResult result){
 		
