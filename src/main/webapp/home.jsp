@@ -6,7 +6,14 @@
 <t:genericpage>
     <jsp:body>
         <jsp:include page="navbar.jsp" />
-        <div class="content">                     
+        <div class="content">   
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Search</button>
+                </span>
+        </div>      
+        <br>            
             <c:forEach items="${AllQuestions}" var="question">
                 <div class="panel panel-default">
                     <div class="panel-body">
