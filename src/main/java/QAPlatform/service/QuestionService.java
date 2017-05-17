@@ -61,7 +61,16 @@ public class QuestionService {
 		questionRepository.save(question);
 	}
 	
+<<<<<<< HEAD
 	public void removeQuestion(int id){
 		questionRepository.delete((long)id);
+=======
+	public void editQuestion(Question question, String topic, String body){
+		//questionRepository.findByid(question.getId());
+		question.setTopic(topic);
+		question.setBody(body);
+		questionRepository.save(question);
+		
+>>>>>>> 886ae56895b82ef413b271289dba896c4ece89ec
 	}
 }
