@@ -40,37 +40,25 @@ public class AnswerController {
 	/*
 	 * wyświetlenie szczegółów pytania i odpowiedzi do niego
 	 */
-	@RequestMapping(value="/Question/{topic}", method=RequestMethod.GET)
-	public String showAnswersToQuestion(@PathVariable("topic") String topic, @RequestParam("question_id")long id, Model model){
-		
-		List<Answer> answers = null;
-		answers = answerService.getAllAnswersByQuestionId(id);
+	@RequestMapping(value="/Question/{id}", method=RequestMethod.GET)
+	public String showAnswersToQuestion(@PathVariable("id") int id, Model model){
 		
 		Question question = questionService.getQuestionById(id);
 		
+		List<Answer> answers = null;
+		answers = answerService.getAllAnswersByQuestionId(question);
+		
+		
+		System.out.println("Liczba odpowiedzi: "+answers.size());
 		model.addAttribute("allAnswers", answers);
 		model.addAttribute("question", question);
 		model.addAttribute("newanswer", new Answer());
-		
 		return "questionAnswers";
 		
 	}
+
 	/**
-	 * 
-	 * @param model  
-	 * 				model odpowiedzi 
-	 * @return 
-	 * 				widok z formułarzem do udzielenia odpowiedzi
-	 */
-	@RequestMapping(value="/Answer/new", method=RequestMethod.GET)
-	public String newAnswer(Model model){
-		
-		
-		return "newAnswer";
-		
-	}
-	/**
-	 * Formuaarz do udzielenia odpowiedzi
+	 * Formularz do udzielenia odpowiedzi
 	 * @param answer 
 	 * 				model odpowiedzi
 	 * @param result 
@@ -80,17 +68,18 @@ public class AnswerController {
 	 */
 	@RequestMapping(value="/Answer/new", method=RequestMethod.POST)
 	public String newAnswer(@ModelAttribute("newanswer") Answer answer, BindingResult result){
-		
+		System.out.println("Dodaje odpowiedz");
+
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
 			return "newAnswer";
 		}
-		
+
 		answer.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 		answerService.addAnswer(answer);
 		
-		return "redirect:/";
+		return "redirect:/Question/"+answer.getQuestion().getId();
 	}
 	/**
 	 * 

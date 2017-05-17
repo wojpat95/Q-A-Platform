@@ -2,6 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:genericpage>
     <jsp:body>
@@ -11,46 +12,35 @@
                     <div class="panel-body">
                         <div class="info">
                             <div class="left"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
-                            <div class="right">AUTOR</div>                            
+                            <div class="right"><c:out value="${question.getUser().getUsername()}" /></div>                            
                         </div>
                         <h3>
-                            TEMAT
+                            <c:out value="${question.topic}" />
                         </h3>
                         <p>
-                            PYTANIE
+                            <c:out value="${question.getBody()}" />
                         </p>                        
                     </div>
             </div>    
             <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="info">
-                            <div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
-                            <div class="left strong">AUTOR</div>                            
-                        </div>
-                    <div>ODPOWIEDZ1</div>
-                </li>
-                <li class="list-group-item">
-                    <div class="info">
-                            <div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
-                            <div class="left strong">AUTOR</div>                            
-                        </div>
-                    <div>ODPOWIEDZ2</div>
-                </li>   
-                <li class="list-group-item">
-                    <div class="info">
-                            <div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
-                            <div class="left strong">AUTOR</div>                            
-                        </div>
-                    <div>ODPOWIEDZ3</div>
-                </li>                   
+            	<c:forEach items="${allAnswers}" var="answer">
+            		<li class="list-group-item">
+                		<div class="info">
+                			<div class="right"><a href="#"><span class="glyphicon glyphicon-edit"></span></a></div>
+                            <div class="left strong"><c:out value="${answer.getUser().getUsername()}" /></div>  
+                		</div>
+                		<div><c:out value="${answer.getBody()}" /></div>
+                	</li>
+            	</c:forEach>                  
             </ul>                                                                                                                                                    
-            <form method="POST" modelAttribute="newanswer">                    
-                        <div class="form-group">                            
-                            <textarea id="body" path="body" type="text" class="form-control"></textarea>                            
+            <form:form method="POST" action="${contextPath}/Answer/new" modelAttribute="newanswer">                    
+                        <div class="form-group">
+                        	<input type="hidden" id="question" path="question" name="question" value="${question.getId()}">                            
+                            <textarea id="body" path="body" name="body" type="text" class="form-control"></textarea>                            
                         </div>                    
 
                     <button type="submit" class="btn btn-default btn-block">Add Answer</button>
-            </form>               
+            </form:form>               
         </div>
     </jsp:body>
 </t:genericpage>

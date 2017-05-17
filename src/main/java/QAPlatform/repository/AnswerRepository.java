@@ -15,5 +15,5 @@ import QAPlatform.model.Question;
  * Repository interface.
  */
 public interface AnswerRepository extends CrudRepository<Answer,Long> {
-	List<Answer> findById(long id);
+	List<Answer> findByQuestion(Question q);
 }

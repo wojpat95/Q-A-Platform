@@ -19,19 +19,8 @@ public class AnswerService{
 		this.answerRepository = an;
 	}
 	
-	public List<Answer> getAllAnswers(Question q){
-		List<Answer> answers = new ArrayList<>();
-		answerRepository.findAll().forEach(answers::add);
-		for(Answer answer : answers){
-			if(!(answer.getQuestion().getId()==q.getId())){
-				answers.remove(answers.indexOf(answer));
-			}	
-		}
-		return answers;
-	}
-	
-	public List<Answer> getAllAnswersByQuestionId(long id){
-		return answerRepository.findById(id);
+	public List<Answer> getAllAnswersByQuestionId(Question q){
+		return answerRepository.findByQuestion(q);
 	}
 	public void addAnswer(Answer an){
 		answerRepository.save(an);
