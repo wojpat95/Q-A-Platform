@@ -22,18 +22,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class QuestionController {
-	
 	private final QuestionService questionService;
+	private final QuestionValidator questionValidator;
 	@Autowired
-	public QuestionController(QuestionService questionService) {
+	public QuestionController(QuestionService questionService, QuestionValidator questionValidator) {
 		this.questionService = questionService;
+		this.questionValidator = questionValidator;
 	}
 
 	@Autowired
     private UserService userService;	
 
-	@Autowired
-	private QuestionValidator questionValidator;
+	
 	/**
 	 * @param model
 	 * 		model pytania
@@ -62,7 +62,8 @@ public class QuestionController {
 			return "newQuestion";
 		}	
 
-		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		question.setUser(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
 		questionService.addQuestion(question);			
 
