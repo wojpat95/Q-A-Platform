@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -97,7 +100,26 @@ public class HomeControllerTest {
         verifyNoMoreInteractions(questionServiceMock);
 
     }
-    
+
+    /**
+     * Sprawdza czy metoda searchQuestionByTopic(:topic) wykonana jest tylko raz i zapewnia  ze inne metody nie zostały
+     * wykonane oraz ze zapytanie przekierowane jest do "/home"
+     */
+    @Test
+    public void searchTest() throws Exception {
+        List<Question> list = new ArrayList<Question>();
+        list.add(mock(Question.class));
+        list.add(mock(Question.class));
+        Model model = mock(Model.class);
+
+        when(questionServiceMock.searchQuestionByTopic(anyString())).thenReturn(list);
+        HomeController homeController = new HomeController(questionServiceMock);
+        assertEquals(homeController.home(anyString(),model),"home");
+
+        verify(questionServiceMock, times(1)).searchQuestionByTopic(anyString());
+        verifyNoMoreInteractions(questionServiceMock);
+
+    }
 
 
 }
