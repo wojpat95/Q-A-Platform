@@ -24,7 +24,7 @@ public class QuestionService {
 	
 	/**
 	 * Konstruktor na potrzeby testowania
-	 * @param an Mock Repository
+	 * @param qr Mock Repository
 	 */
 	public QuestionService(QuestionRepository qr){
 		questionRepository = qr;
