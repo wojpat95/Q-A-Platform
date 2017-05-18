@@ -2,6 +2,8 @@ package QAPlatform.web;
 
 import QAPlatform.model.Question;
 import QAPlatform.service.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-	
 	private final QuestionService questionService;
 
 	@Autowired
@@ -32,7 +33,6 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model){
-		
 		List<Question> questions = null;
 		questions = questionService.getAllQuestions();
 		

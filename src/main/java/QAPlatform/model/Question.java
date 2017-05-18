@@ -1,5 +1,7 @@
 package QAPlatform.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -23,17 +23,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class QuestionController {
 	private final QuestionService questionService;
+
+	private final UserService userService;
+
 	private final QuestionValidator questionValidator;
+
 	@Autowired
-	public QuestionController(QuestionService questionService, QuestionValidator questionValidator) {
+	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator) {
 		this.questionService = questionService;
+		this.userService = userService;
 		this.questionValidator = questionValidator;
 	}
 
-	@Autowired
-    private UserService userService;	
-
-	
 	/**
 	 * @param model
 	 * 		model pytania
@@ -65,7 +66,7 @@ public class QuestionController {
 		question.setUser(
 				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
-		questionService.addQuestion(question);			
+		questionService.addQuestion(question);
 
 		return "redirect:/";
 	}

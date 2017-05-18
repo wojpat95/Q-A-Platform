@@ -13,6 +13,9 @@ import java.util.List;
 import QAPlatform.model.Question;
 import QAPlatform.repository.QuestionRepository;
 
+/**
+ * Klasa testująca serwis pytań
+ */
 public class QuestionServiceTest {
 
 	 private QuestionService qs;
@@ -24,7 +27,10 @@ public class QuestionServiceTest {
 	        qs = new QuestionService(qrMock);
 	    }
 
-	    @Test
+	/**
+	 * Testowanie czy metoda allQuestionTest() z serwisu zwraca poprawne pytania
+	 */
+	@Test
 	    public void returnAllQuestionsTest(){
 	    	
 	    	List<Question> list = new ArrayList<Question>();
@@ -35,7 +41,11 @@ public class QuestionServiceTest {
 
 	        assertEquals(list, qs.getAllQuestions());
 	    }
-	    @Test
+
+	/**
+	 * Testowanie czy metoda getQuestionById(:id) z serwisu zwraca poprawne pytanie
+	 */
+	@Test
 	    public void getQuestionByIdTest(){
 	    	
 	    	Question mockQ = mock(Question.class);
@@ -44,7 +54,11 @@ public class QuestionServiceTest {
 
 	        assertEquals(mockQ, qs.getQuestionById(1));
 	    }
-	    @Test
+	/**
+	 * Testowanie czy metoda searchQuestionByTopic(:topic) z serwisu zwraca poprawne pytanie
+	 */
+
+	@Test
 	    public void searchQuestionByTopicTest(){
 	    	
 	    	List<Question> list = new ArrayList<Question>();

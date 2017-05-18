@@ -24,7 +24,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-
+/**
+ * Klasa testująca kontroler widoku Question
+ */
 public class QuestionControllerTest {
     private MockMvc mockMvc;
 
@@ -41,19 +43,47 @@ public class QuestionControllerTest {
     public void setUp() {
         questionServiceMock = mock(QuestionService.class);
         questionValidator = mock(QuestionValidator.class);
-        mockMvc = MockMvcBuilders.standaloneSetup(new QuestionController(questionServiceMock,questionValidator)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new QuestionController(questionServiceMock,userServiceMock,questionValidator)).build();
     }
 
+    /**
+     * Zapewnia ze kod statusu HTTP jest 200
+     */
     @Test
-    public void newQuestionTest() throws Exception {
+    public void newQuestionTestStatus() throws Exception {
 
         mockMvc.perform(get("/Question/new"))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk());
+
+    }
+
+    /**
+     * Zapewnia ze nazwa widoku to "newQuestion"
+     */
+    @Test
+    public void newQuestionTestViewName() throws Exception {
+
+        mockMvc.perform(get("/Question/new"))
                 .andExpect(view().name("newQuestion"))
+
+    }
+
+    /**
+     * Zapewnia ze atrybut "newQuestion" jest klasą Question
+     */
+    @Test
+    public void newQuestionTestAttribute() throws Exception {
+
+        mockMvc.perform(get("/Question/new"))
                 .andExpect(model().attribute("newquestion", instanceOf(Question.class)));
 
     }
-    
+
+
+
+    /**
+     * Zapewnia ze atrybut "newQuestion" jest klasą Question
+     */
     @Test
     public void editQuestionTest() throws Exception {
     	
@@ -69,15 +99,16 @@ public class QuestionControllerTest {
     
     @Test
     public void newQuestionPOSTTestfalse() throws Exception {
-    	
+
     	Question q = mock(Question.class);
     	doNothing().when(q).setUser(mock(User.class));
     	BindingResult result = mock(BindingResult.class);
     	doNothing().when(questionValidator).validate(q,result);
     	doNothing().when(questionServiceMock).addQuestion(q);
+
     	when(result.hasErrors()).thenReturn(true);
     	
-    	QuestionController qc = new QuestionController(questionServiceMock,questionValidator);
+    	QuestionController qc = new QuestionController(questionServiceMock,userServiceMock, questionValidator);
     	assertEquals(qc.newQuestion(q, result),"newQuestion");
     	
         verify(questionValidator, times(1)).validate(q,result);
@@ -94,7 +125,7 @@ public class QuestionControllerTest {
     	doNothing().when(questionServiceMock).addQuestion(q);
     	when(result.hasErrors()).thenReturn(false);
     	
-    	QuestionController qc = new QuestionController(questionServiceMock,questionValidator);
+    	QuestionController qc = new QuestionController(questionServiceMock,userServiceMock, questionValidator);
     	assertEquals(qc.editQuestion(q, result),"redirect:/Question/3");
     	
     	verify(questionServiceMock, times(1)).addQuestion(q);
@@ -111,7 +142,7 @@ public class QuestionControllerTest {
     	doNothing().when(questionServiceMock).addQuestion(q);
     	when(result.hasErrors()).thenReturn(true);
     	
-    	QuestionController qc = new QuestionController(questionServiceMock,questionValidator);
+    	QuestionController qc = new QuestionController(questionServiceMock, userServiceMock, questionValidator);
     	assertEquals(qc.editQuestion(q, result),"editQuestion");
     	
         verify(questionValidator, times(1)).validate(q,result);

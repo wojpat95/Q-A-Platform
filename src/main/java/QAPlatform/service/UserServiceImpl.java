@@ -10,13 +10,16 @@ import java.util.HashSet;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    public UserServiceImpl(UserRepository ur) {userRepository = ur;}
+    public UserServiceImpl(UserRepository ur, BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository) {
+        userRepository = ur;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.roleRepository = roleRepository;
+    }
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
