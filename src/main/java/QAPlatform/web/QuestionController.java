@@ -60,7 +60,7 @@ public class QuestionController {
 		questionValidator.validate(question, result);
 		
 		if(result.hasErrors()){
-			return "/Question/new";
+			return "editQuestion";
 		}	
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -93,7 +93,7 @@ public class QuestionController {
 		questionValidator.validate(question,result);
 		
 		if(result.hasErrors()){
-			return "/Question/edit";
+			return "editQuestion";
 		}
 		question.setUser(questionService.getQuestionById(question.getId()).getUser());
 		questionService.addQuestion(question);
