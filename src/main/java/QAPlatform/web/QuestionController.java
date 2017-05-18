@@ -63,8 +63,7 @@ public class QuestionController {
 			return "newQuestion";
 		}	
 
-		question.setUser(
-				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
 		questionService.addQuestion(question);
 
@@ -96,7 +95,7 @@ public class QuestionController {
 		if(result.hasErrors()){
 			return "editQuestion";
 		}
-
+		question.setUser(questionService.getQuestionById(question.getId()).getUser());
 		questionService.addQuestion(question);
 		
 		return "redirect:/Question/"+question.getId();
