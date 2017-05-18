@@ -43,7 +43,7 @@ public class UserServiceTest {
 	    }
 
 	    @Test
-	    public void returnSaveTest(){
+	    public void saveTest(){
 	    	User user = mock(User.class);
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(mock(Role.class));
