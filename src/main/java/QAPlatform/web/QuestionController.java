@@ -20,14 +20,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class QuestionController {
-	@Autowired
-	private QuestionService questionService;
+	private final QuestionService questionService;
+
+	private final UserService userService;
+
+	private final QuestionValidator questionValidator;
 
 	@Autowired
-    private UserService userService;	
+	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator) {
+		this.questionService = questionService;
+		this.userService = userService;
+		this.questionValidator = questionValidator;
+	}
 
-	@Autowired
-	private QuestionValidator questionValidator;
 	/**
 	 * @param model
 	 * 		model pytania
@@ -58,7 +63,7 @@ public class QuestionController {
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
-		questionService.addQuestion(question);			
+		questionService.addQuestion(question);
 
 		return "redirect:/";
 	}

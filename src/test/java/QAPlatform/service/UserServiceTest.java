@@ -6,10 +6,12 @@ import QAPlatform.model.User;
 import QAPlatform.repository.QuestionRepository;
 import QAPlatform.repository.RoleRepository;
 import QAPlatform.repository.UserRepository;
+import org.aspectj.weaver.bcel.BcelAccessForInlineMunger;
 import org.junit.Before;
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,30 +31,31 @@ public class UserServiceTest {
 	@Autowired
 	private UserServiceImpl userService;
 
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 	    @Before
 	    public void setUp() {
 		userRepository = mock(UserRepository.class);
 		roleRepository = mock(RoleRepository.class);
-		userService = new UserServiceImpl(userRepository);
+		bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
+		userService = new UserServiceImpl(userRepository,bCryptPasswordEncoder,roleRepository);
 	    }
 
 	    @Test
 	    public void returnSaveTest(){
-			User user = new User();
-			user.setPassword("random123");
-			user.setUsername("mockUsername");
-//			PowerMockito.whenNew(User.class).withArguments();
+	    	User user = mock(User.class);
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(mock(Role.class));
 			when(roleRepository.findAll()).thenReturn(roles);
 			userService.save(user);
-			verify(userRepository,times(1));
+			verify(userRepository,times(1)).findByUsername(user.getUsername());
 	    }
 
 	@Test
 	public void findByUsernameTest(){
 		User user = mock(User.class);
-		when(userRepository.findByUsername("mockUsername")).thenReturn(user);
-		assertEquals(user, userService.findByUsername("mockUsername"));
+		when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
+		assertEquals(user, userService.findByUsername(user.getUsername()));
 	}
 }

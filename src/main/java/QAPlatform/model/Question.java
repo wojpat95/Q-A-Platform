@@ -1,5 +1,7 @@
 package QAPlatform.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +23,11 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+
+	@Length(max = 200)
 	private String topic;
+
+	@Length(max = 1000)
 	private String body;
 	private long likes;
 	private long dislikes;
