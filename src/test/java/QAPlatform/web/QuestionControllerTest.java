@@ -82,21 +82,49 @@ public class QuestionControllerTest {
 
 
     /**
-     * Zapewnia ze atrybut "newQuestion" jest klasą Question
+     * Zapewnia ze atrybut "editquestion" jest klasą Question
      */
     @Test
-    public void editQuestionTest() throws Exception {
+    public void editQuestionTestAttribute() throws Exception {
     	
     	Question q = mock(Question.class);
     	when(questionServiceMock.getQuestionById(3)).thenReturn(q);
     	
         mockMvc.perform(get("/Question/edit/3"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("editQuestion"))
                 .andExpect(model().attribute("editquestion", instanceOf(Question.class)));
 
     }
-    
+
+    /**
+     * Zapewnia ze kod statusu HTTP jest 200
+     */
+    @Test
+    public void editQuestionTestStatus() throws Exception {
+
+        Question q = mock(Question.class);
+        when(questionServiceMock.getQuestionById(3)).thenReturn(q);
+
+        mockMvc.perform(get("/Question/edit/3"))
+                .andExpect(status().isOk());
+
+    }
+
+    /**
+     * Zapewnia ze nazwa widoku to "editQuestion"
+     */
+    @Test
+    public void editQuestionTestViewName() throws Exception {
+
+        Question q = mock(Question.class);
+        when(questionServiceMock.getQuestionById(3)).thenReturn(q);
+
+        mockMvc.perform(get("/Question/edit/3"))
+                .andExpect(view().name("editQuestion"));
+
+    }
+    /**
+     * Zapewnia ze nazwa widoku to "newQuestion"
+     */
     @Test
     public void newQuestionPOSTTestfalse() throws Exception {
 
@@ -114,24 +142,11 @@ public class QuestionControllerTest {
         verify(questionValidator, times(1)).validate(q,result);
         verify(result, times(1)).hasErrors();
     }
-    @Test
-    public void editQuestionPOSTTestOK() throws Exception {
-    	
-    	Question q = mock(Question.class);
-    	when(q.getId()).thenReturn(3L);
-    	doNothing().when(q).setUser(mock(User.class));
-    	BindingResult result = mock(BindingResult.class);
-    	doNothing().when(questionValidator).validate(q,result);
-    	doNothing().when(questionServiceMock).addQuestion(q);
-    	when(result.hasErrors()).thenReturn(false);
-    	
-    	QuestionController qc = new QuestionController(questionServiceMock,userServiceMock, questionValidator);
-    	assertEquals(qc.editQuestion(q, result),"redirect:/Question/3");
-    	
-    	verify(questionServiceMock, times(1)).addQuestion(q);
-        verify(questionValidator, times(1)).validate(q,result);
-        verify(result, times(1)).hasErrors();
-    }
+
+    /**
+     * Zapewnia ze jeżeli wystąpi błąd podczas edytowania pytania to przekieruje nas do "/editQuestion", walidacja wykona się tylko raz
+     */
+
     @Test
     public void editQuestionPOSTTestfalse() throws Exception {
     	

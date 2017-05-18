@@ -46,15 +46,15 @@ public class UserServiceTest {
 	/**
 	 * Testowanie czy metoda save(:user) z serwisu wykonuje się tylko raz
 	 */
-	    @Test
-	    public void saveTest(){
-	    	User user = mock(User.class);
-			List<Role> roles = new ArrayList<Role>();
-			roles.add(mock(Role.class));
-			when(roleRepository.findAll()).thenReturn(roles);
-			userService.save(user);
-			verify(userRepository,times(1)).findByUsername(user.getUsername());
-	    }
+	@Test
+	public void saveTest(){
+		User user = mock(User.class);
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(mock(Role.class));
+		when(roleRepository.findAll()).thenReturn(roles);
+		userService.save(user);
+		verify(userRepository,times(1)).save(user);
+	}
 
 	/**
 	 * Testowanie czy metoda findByUsername(:username) z serwisu poprawnie zwraca użytkownika

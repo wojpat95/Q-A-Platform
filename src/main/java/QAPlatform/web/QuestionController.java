@@ -60,11 +60,10 @@ public class QuestionController {
 		questionValidator.validate(question, result);
 		
 		if(result.hasErrors()){
-			return "newQuestion";
+			return "/Question/new";
 		}	
 
-		question.setUser(
-				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
 		questionService.addQuestion(question);
 
@@ -94,9 +93,9 @@ public class QuestionController {
 		questionValidator.validate(question,result);
 		
 		if(result.hasErrors()){
-			return "editQuestion";
+			return "/Question/edit";
 		}
-
+		question.setUser(questionService.getQuestionById(question.getId()).getUser());
 		questionService.addQuestion(question);
 		
 		return "redirect:/Question/"+question.getId();
