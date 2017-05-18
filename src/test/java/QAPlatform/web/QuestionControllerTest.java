@@ -64,7 +64,7 @@ public class QuestionControllerTest {
     public void newQuestionTestViewName() throws Exception {
 
         mockMvc.perform(get("/Question/new"))
-                .andExpect(view().name("newQuestion"))
+                .andExpect(view().name("newQuestion"));
 
     }
 

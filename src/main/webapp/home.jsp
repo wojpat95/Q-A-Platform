@@ -8,15 +8,16 @@
     <jsp:body>
         <jsp:include page="navbar.jsp" />
         <div class="content">   
-            <div class="input-group">
-                <form:form class="form-inline" method="POST" action="${contextPath}/search">
             
+                <form:form class="form" method="POST" action="${contextPath}/search">
+                <div class="input-group">
 	                <input type="text" name="search_expr" class="form-control" placeholder="Search for...">
-	                
-	                    <button class="btn btn-default" type="submit">Search</button>
-	                
+	                <span class="input-group-btn">
+	                <button class="btn btn-default" type="submit">Search</button>	 
+	                </span>
+                    </div>                     
                 </form:form>
-        </div>      
+        
         <br>            
             <c:forEach items="${AllQuestions}" var="question">
                 <div class="panel panel-default">
