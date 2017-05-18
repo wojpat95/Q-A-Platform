@@ -75,7 +75,7 @@ public class AnswerController {
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
-			return "newAnswer";
+			return "/Answer/new";
 		}
 
 		answer.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -113,7 +113,7 @@ public class AnswerController {
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
-			return "editAnswer";
+			return "/Answer/edit";
 		}
 		answer.setUser(answerService.getAnswerById(answer.getId()).getUser());
 		answer.setQuestion(answerService.getAnswerById(answer.getId()).getQuestion());
