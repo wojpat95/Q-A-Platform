@@ -60,7 +60,7 @@ public class QuestionController {
 		questionValidator.validate(question, result);
 		
 		if(result.hasErrors()){
-			return "editQuestion";
+			return "newQuestion";
 		}	
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
