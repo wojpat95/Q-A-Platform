@@ -144,28 +144,6 @@ public class QuestionControllerTest {
     }
 
     /**
-     * Zapewnia ze jeżeli nie będzie błędów podczas edytowania pytania to przekieruje nas do "redirect:/Question/:id"
-     */
-    @Test
-    public void editQuestionPOSTTestOK() throws Exception {
-    	
-    	Question q = mock(Question.class);
-    	when(q.getId()).thenReturn(3L);
-    	doNothing().when(q).setUser(mock(User.class));
-    	BindingResult result = mock(BindingResult.class);
-    	doNothing().when(questionValidator).validate(q,result);
-    	doNothing().when(questionServiceMock).addQuestion(q);
-    	when(result.hasErrors()).thenReturn(false);
-    	
-    	QuestionController qc = new QuestionController(questionServiceMock,userServiceMock, questionValidator);
-    	assertEquals(qc.editQuestion(q, result),"redirect:/Question/3");
-    	
-    	verify(questionServiceMock, times(1)).addQuestion(q);
-        verify(questionValidator, times(1)).validate(q,result);
-        verify(result, times(1)).hasErrors();
-    }
-
-    /**
      * Zapewnia ze jeżeli wystąpi błąd podczas edytowania pytania to przekieruje nas do "/editQuestion", walidacja wykona się tylko raz
      */
 
