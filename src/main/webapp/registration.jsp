@@ -40,7 +40,7 @@
                     </div>
                     </spring:bind>
 
-                    <button type="submit" class="btn btn-default btn-block">Sing up</button>
+                    <button type="submit" class="btn btn-default btn-block">Sign up</button>
         
                 </form:form> 
             </div> 

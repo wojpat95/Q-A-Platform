@@ -24,7 +24,7 @@
                                 </div>
                             </spring:bind>
 
-                            <button type="submit" class="btn btn-default btn-block">Add</button>
+                            <button type="submit" class="btn btn-default btn-block">Edit</button>
                         </form:form>
                     </div>                            
         </div>
