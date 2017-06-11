@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import QAPlatform.repository.QuestionRepository;
 import QAPlatform.model.Question;
+import QAPlatform.model.User;
 
 /**
  * @author Bartosz Gierczak
@@ -36,6 +37,17 @@ public class QuestionService {
 	public List<Question> getAllQuestions(){
 		List<Question> questions = new ArrayList<>();
 		questionRepository.findAll().forEach(questions::add);
+		return questions;
+	}
+	/**
+	 * Zwraca listę pytań uzytkownika
+	 * @param userId identyfikato uzytkownika
+	 * @return lista pytan uzytkownika
+	 */
+	public List<Question> getByUserId(User user)
+	{
+		List<Question> questions = new ArrayList<>();
+		questionRepository.findByUser(user).forEach(questions::add);
 		return questions;
 	}
 	/**

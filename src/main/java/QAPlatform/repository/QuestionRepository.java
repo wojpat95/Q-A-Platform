@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import QAPlatform.model.Question;
+import QAPlatform.model.User;
 
 /**
  * @author Bartosz Gierczak
@@ -20,4 +21,5 @@ public interface QuestionRepository extends CrudRepository<Question,Long> {
 		 * @return Lista pytań z szukaną frazą
 		 */
 		List<Question> findByTopicIgnoreCaseContaining(String topic);
+		List<Question> findByUser(User user);
 }
