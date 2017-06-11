@@ -8,9 +8,16 @@
     <jsp:body>
         <jsp:include page="navbar.jsp" />
         <div class="content">  
-        <div>Questions count: <c:out value="${QuestionsCount}" /></div>
-        <div>Answers under own questions count: <c:out value="${AnswersCount}" /></div>
-        <div>Own answers count: <c:out value="${OwnAnswersCount}" /></div>                             
+            <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Statistics
+                    </div>
+                    <div class="panel-body statistics">
+                        <h3>Questions added <div class="right values"><c:out value="${QuestionsCount}"/></div></h3>
+                        <h3>Answers recieved<div class="right values"><c:out value="${AnswersCount}"/></div></h3>
+                        <h3>Own answers<div class="right values"><c:out value="${OwnAnswersCount}"/></div></h3>    
+                    </div>
+            </div>                         
         </div>               
     </jsp:body>
 </t:genericpage>

@@ -9,6 +9,7 @@
         <ul class="nav navbar-nav">
             <li><a href="${contextPath}/">Home</a></li>
             <li><a href="${contextPath}/Question/new">Add question</a></li>
+            <li><a href="${contextPath}/Statistics">Statistics</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${pageContext.request.userPrincipal.name != null}">

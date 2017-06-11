@@ -22,11 +22,9 @@
             <c:forEach items="${AllQuestions}" var="question">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="info">
-                            <div class="right"><c:out value="${question.getUser().getUsername()}" /></div>                            
-                        </div>
                         <h3>
                             <c:out value="${question.topic}" />
+                            <div class="right author"><c:out value="${question.getUser().getUsername()}" /></div>
                         </h3>
                         <p>
                             <c:out value="${question.getBody()}" />
