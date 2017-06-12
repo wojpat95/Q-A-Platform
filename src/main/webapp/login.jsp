@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <t:genericpage>
-    <jsp:body>
+    <jsp:body>        
         <div class="panel panel-default login">
             <div class="panel-heading">
                 Q&A Platform
@@ -46,6 +46,6 @@
              <div class="panel-footer">
                 Don't have an account? <a href="${contextPath}/registration">Sign up now!</a>
             </div> 
-        </div>
+        </div>        
     </jsp:body>
 </t:genericpage>

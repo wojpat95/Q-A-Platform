@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Klasa będąca kontrolerem pytań.
@@ -20,20 +22,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class QuestionController {
-	@Autowired
-	private QuestionService questionService;
+	private final QuestionService questionService;
+
+	private final UserService userService;
+
+	private final QuestionValidator questionValidator;
 
 	@Autowired
-    private UserService userService;	
+	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator) {
+		this.questionService = questionService;
+		this.userService = userService;
+		this.questionValidator = questionValidator;
+	}
 
-	@Autowired
-	private QuestionValidator questionValidator;
 	/**
 	 * @param model
 	 * 		model pytania
 	 * @return widok formularza słuzącego do dodawania pytań
 	 */
-	@RequestMapping(value="/newQuestion", method = RequestMethod.GET)
+	@RequestMapping(value="/Question/new", method = RequestMethod.GET)
 	public String newQuestion(Model model){
 		model.addAttribute("newquestion", new Question()); 
 		return "newQuestion";
@@ -47,7 +54,7 @@ public class QuestionController {
 	 * 		rezultat łączenia danych z modelem
 	 * @return widok formularza słuzącego do dodawania pytań wraz z błędami w wypadu niepowodzenia lub strona główna, w przypadku pomyślnej operacji
 	 */
-	@RequestMapping(value="/newQuestion",method =RequestMethod.POST)
+	@RequestMapping(value="/Question/new",method =RequestMethod.POST)
 	public String newQuestion(@ModelAttribute("newquestion") Question question, BindingResult result){
 		
 		questionValidator.validate(question, result);
@@ -58,8 +65,51 @@ public class QuestionController {
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
-		questionService.addQuestion(question);			
+		questionService.addQuestion(question);
 
+		return "redirect:/";
+	}
+	
+	/**
+	 * @param id identyfikator pytania
+	 * @param model model pytania
+	 * @return widok formularza służący do edycji pytania
+	 */
+	@RequestMapping(value="/Question/edit/{id}",method=RequestMethod.GET)
+	public String editQuestion(@PathVariable("id") int id, Model model){
+		
+		model.addAttribute("editquestion",questionService.getQuestionById(id));
+		return "editQuestion";
+		
+	}
+	/**
+	 * @param question pytanie, które zostanie edytowane
+	 * @param result rezultat łączenia danych z modelem
+	 * @return widok formularza służący do edycji pytania lub strona główna w przypadku pomyślnej operacji
+	 */
+	@RequestMapping(value="/Question/edit", method=RequestMethod.POST)//
+	public String editQuestion(@ModelAttribute("editquestion") Question question, BindingResult result){
+		
+		questionValidator.validate(question,result);
+		
+		if(result.hasErrors()){
+			return "editQuestion";
+		}
+		question.setUser(questionService.getQuestionById(question.getId()).getUser());
+		questionService.addQuestion(question);
+		
+		return "redirect:/Question/"+question.getId();
+	}
+	/**
+	 * @param id identyfikator pytania
+	 * @param result rezultat łączenia danych z modelem
+	 * @return przekierowanie do strony głównej
+	 */
+	@RequestMapping(value="/Question/remove/{id}", method=RequestMethod.POST)
+	public String removeQuestion(@PathVariable("id") int id, BindingResult result){
+		
+		questionService.removeQuestion(id);
+		
 		return "redirect:/";
 	}
 }

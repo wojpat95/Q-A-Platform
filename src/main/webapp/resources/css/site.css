@@ -1,19 +1,35 @@
 .register, .login
 {
-    width: 500px;
-    margin: 0 auto;
     margin-top: 100px;
+}
+
+@media screen and (min-width: 600px)
+{
+    .register, .login
+    {
+        width: 500px;
+        margin: 0 auto; 
+        margin-top: 100px;     
+    }
 }
 
 .content
 {
-    width: 600px;
-    margin: 0 auto;
     overflow: hidden;
 }
 
+@media screen and (min-width: 600px)
+{
+    .content
+    {
+        width: 600px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+}
+
 .content h3{
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 5px;
 }
 
@@ -35,16 +51,20 @@
 .content .info
 {
     position: relative;
+    padding-bottom: 30px;
 }
 
-.content .author
-{
+.strong{
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.left{
     position: absolute;
     left: 0;
 }
 
-.content .time
-{
+.right{
     position: absolute;
     right: 0;
 }

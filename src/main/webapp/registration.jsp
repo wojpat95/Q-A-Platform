@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <t:genericpage>
-    <jsp:body>
+    <jsp:body>        
         <div class="panel panel-default register">
             <div class="panel-heading">
                 Register
@@ -40,7 +40,7 @@
                     </div>
                     </spring:bind>
 
-                    <button type="submit" class="btn btn-default btn-block">Sing up</button>
+                    <button type="submit" class="btn btn-default btn-block">Sign up</button>
         
                 </form:form> 
             </div> 
@@ -48,6 +48,6 @@
             <div class="panel-footer">
                 Do you have an account? <a href="${contextPath}/login">Sign in</a>
             </div>  
-        </div>  
+        </div>          
     </jsp:body>
 </t:genericpage>
