@@ -6,6 +6,7 @@ import QAPlatform.validator.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -84,5 +85,14 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
+    }
+
+    @Transactional
+    @RequestMapping(value="/clean", method = RequestMethod.GET)
+    public String clean()
+    {
+        userService.cleanUsers();
+
+        return "redirect:/login";
     }
 }
