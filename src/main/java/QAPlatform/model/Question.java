@@ -27,7 +27,8 @@ public class Question {
 	private String body;
 	private long likes;
 	private long dislikes;
-	private String Category;
+	
+	private Category category;
 	//private String Time;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -131,14 +132,14 @@ public class Question {
 	/**
 	 * @return zwraca kategorię
 	 */
-	public String getCategory() {
-		return Category;
+	public Category getCategory() {
+		return category;
 	}
 	/**
 	 * @param category ustawia kategorię
 	 */
-	public void setCategory(String category) {
-		Category = category;
+	public void setCategory(Category category) {
+		category = category;
 	}
 	
 }
