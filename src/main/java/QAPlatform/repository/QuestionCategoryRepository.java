@@ -2,12 +2,12 @@ package QAPlatform.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import QAPlatform.model.Category;
+import QAPlatform.model.QuestionCategory;
 
 /**
  * @author Bartosz Gierczak
  * Repository interface.
  */
-public interface CategoryRepository extends CrudRepository<Category,Long>{
+public interface QuestionCategoryRepository extends CrudRepository<QuestionCategory,Long>{
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import QAPlatform.repository.QuestionRepository;
 import QAPlatform.model.Question;
+import QAPlatform.model.QuestionCategory;
 import QAPlatform.model.User;
 
 /**
@@ -37,6 +38,11 @@ public class QuestionService {
 	public List<Question> getAllQuestions(){
 		List<Question> questions = new ArrayList<>();
 		questionRepository.findAll().forEach(questions::add);
+		return questions;
+	}
+	public List<Question> searchQuestionByCategory(long category){
+		List<Question> questions = new ArrayList<>();
+		questionRepository.findByCategory(category).forEach(questions::add);
 		return questions;
 	}
 	/**

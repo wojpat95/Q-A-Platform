@@ -1,8 +1,11 @@
 package QAPlatform.web;
 
 import QAPlatform.model.Question;
+import QAPlatform.model.QuestionCategory;
 import QAPlatform.service.*;
 import QAPlatform.validator.QuestionValidator;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +30,9 @@ public class QuestionController {
 	private final UserService userService;
 
 	private final QuestionValidator questionValidator;
-
+	
+	@Autowired
+	private QuestionCategoryService questionCategoriesService;
 	@Autowired
 	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator) {
 		this.questionService = questionService;
@@ -42,7 +47,9 @@ public class QuestionController {
 	 */
 	@RequestMapping(value="/Question/new", method = RequestMethod.GET)
 	public String newQuestion(Model model){
+		List<QuestionCategory> categories = questionCategoriesService.getAllCategories();
 		model.addAttribute("newquestion", new Question()); 
+		model.addAttribute("allCategories", categories);
 		return "newQuestion";
 	}
 	
@@ -56,11 +63,11 @@ public class QuestionController {
 	 */
 	@RequestMapping(value="/Question/new",method =RequestMethod.POST)
 	public String newQuestion(@ModelAttribute("newquestion") Question question, BindingResult result){
-		
+		System.out.println(question.getCategory());
 		questionValidator.validate(question, result);
 		
 		if(result.hasErrors()){
-			return "newQuestion";
+			return "redirect:/Question/new";
 		}	
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
