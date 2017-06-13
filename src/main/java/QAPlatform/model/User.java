@@ -16,6 +16,7 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
+    private Set<ObservedQuestion> observedQuestions;
 
     /**
     * @return identyfikator użytkownika
@@ -98,5 +99,24 @@ public class User {
      */
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    /**
+     * @return obserwowane posty użytkownika
+     */
+    @OneToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "observedQuestions_id"))
+    public Set<ObservedQuestion> getObservedQuestios() {
+        return observedQuestions;
+    }
+
+    /**
+     * @param observedQuestions
+     *      obserwowane posty użytkownika
+     */
+//    @ManyToMany
+//    @JoinTable(name = "user_observedQuestions", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "observedQuestion_id"))
+    public void setObservedQuestios(Set<ObservedQuestion> observedQuestions) {
+        this.observedQuestions = observedQuestions;
     }
 }
