@@ -17,6 +17,15 @@
 	                </span>
                     </div>                     
                 </form:form>
+                	
+                <form:form >
+                	<div class="input-group">
+                		<select>
+                			<option value="topic" selected>Topic</option>
+                		</select>
+                		<button class="btn btn-default" type="submit">Sort</button>
+                	</div>
+                </form:form>
         
         <br>            
             <c:forEach items="${AllQuestions}" var="question">
@@ -33,6 +42,9 @@
                     </div>
                 </div>                
             </c:forEach>
+                <form:form class="form" method="GET" action="${contextPath}/draw">
+                	<button class="btn btn-default" type="submit">Draw Question></button> 
+                </form:form>
         </div>
     </jsp:body>
 </t:genericpage>

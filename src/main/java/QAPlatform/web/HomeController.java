@@ -5,6 +5,7 @@ import QAPlatform.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Klasa będąca głównym kontrolerem aplikacji.
@@ -52,5 +54,44 @@ public class HomeController {
 
 		model.addAttribute("AllQuestions", questions);
 		return "home";
+	}
+	/**
+	 * 
+	 * @param model model pytania
+	 * @return widok strony głównej z wylosowanym pytaniem
+	 */
+	@RequestMapping(value="/draw",method = RequestMethod.POST)
+	public String drawQuestion(Model model){
+		List<Question> questions = null;
+		questions = questionService.getAllQuestions();
+		
+		int listsize = questions.size();
+		Random n = new Random();
+		Question question = questions.get(n.nextInt(listsize-1));
+		
+		model.addAttribute("AllQuestions",question);
+		return "home";
+	}
+	
+	@RequestMapping(value="/sort/{string}",method = RequestMethod.GET)
+	public String sortQuestions(@PathVariable("string") String string,Model model){
+		List<Question> questions = null;
+		
+		switch(string){
+		case "Topic":
+			{
+				questions = questionService.getQuestionsSortedByTopic();
+				break;
+			}
+		//case "Category":
+		//	{
+			//	questions = questionService.getQuestionsSortedByCategory();
+			//break;
+			//}
+		}
+		
+		model.addAttribute("AllQuestions",questions);
+		return "home";
+		
 	}
 }

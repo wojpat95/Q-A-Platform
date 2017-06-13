@@ -22,4 +22,5 @@ public interface QuestionRepository extends CrudRepository<Question,Long> {
 		 */
 		List<Question> findByTopicIgnoreCaseContaining(String topic);
 		List<Question> findByUser(User user);
+		List<Question> findAllByOrderByTopic();
 }
