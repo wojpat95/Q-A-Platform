@@ -31,6 +31,7 @@
 .content h3{
     margin-top: 5px;
     margin-bottom: 5px;
+    position: relative;
 }
 
 .panel-heading
@@ -62,9 +63,26 @@
 .left{
     position: absolute;
     left: 0;
+    top:0;
 }
 
 .right{
     position: absolute;
     right: 0;
+    top:0;
+}
+
+.author{
+    font-weight: normal;
+    font-size: 0.8em;
+}
+
+.values{
+    color: black;
+}
+
+.statistics h3{
+    font-weight: normal;
+    color: gray;
+    font-size: 1.2em;
 }

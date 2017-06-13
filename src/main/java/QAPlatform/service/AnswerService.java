@@ -1,12 +1,14 @@
 package QAPlatform.service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import QAPlatform.model.Answer;
 import QAPlatform.model.Question;
+import QAPlatform.model.User;
 import QAPlatform.repository.AnswerRepository;
 
 /**
@@ -33,6 +35,17 @@ public class AnswerService{
 	 */
 	public List<Answer> getAllAnswersByQuestionId(Question q){
 		return answerRepository.findByQuestion(q);
+	}
+	/**
+	 * Zwraca listę pytań uzytkownika
+	 * @param userId identyfikato uzytkownika
+	 * @return lista pytan uzytkownika
+	 */
+	public List<Answer> getByUserId(User user)
+	{
+		List<Answer> answers = new ArrayList<>();
+		answerRepository.findByUser(user).forEach(answers::add);
+		return answers;
 	}
 	/**
 	 * Dodaj lub uaktualnij odpowiedź
