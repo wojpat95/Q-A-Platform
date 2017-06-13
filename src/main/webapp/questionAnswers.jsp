@@ -32,14 +32,14 @@
                                     <c:when test="${observedQuestion == null }">
                                         <a href="${contextPath}/Question/${question.getId()}/observe">
                                             <span class="glyphicon glyphicon-eye-open">
-                                                <span>Obserwuj</span>
+                                                <span>Observe</span>
                                             </span>
                                         </a>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="${contextPath}/Question/${question.getId()}/stopObserve">
                                             <span class="glyphicon glyphicon-eye-close">
-                                                <span>Przestań obserwować</span>
+                                                <span>Stop Observe</span>
                                             </span>
                                         </a>
                                     </c:otherwise>

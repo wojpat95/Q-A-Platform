@@ -23,13 +23,13 @@
                     <c:when test="${observed == false }">
                         <a href="${contextPath}/observe">
                         <%--<span class="glyphicon glyphicon-eye-open">--%>
-                            <span>Obserwowane</span>
+                            <span>Observed question</span>
                         <%--</span>--%>
                         </a>
                     </c:when>
                     <c:otherwise>
                         <a href="${contextPath}/stopObserve">
-                            <span>Wszystkie</span>
+                            <span>All question</span>
                         </a>
                     </c:otherwise>
 
