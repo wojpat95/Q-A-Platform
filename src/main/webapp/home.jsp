@@ -17,8 +17,25 @@
 	                </span>
                     </div>                     
                 </form:form>
-        
-        <br>            
+        <br>
+            <div class="info">
+                <c:choose>
+                    <c:when test="${observed == false }">
+                        <a href="${contextPath}/observe">
+                        <%--<span class="glyphicon glyphicon-eye-open">--%>
+                            <span>Obserwowane</span>
+                        <%--</span>--%>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${contextPath}/stopObserve">
+                            <span>Wszystkie</span>
+                        </a>
+                    </c:otherwise>
+
+                </c:choose></div>
+        </div>
+        <br>
             <c:forEach items="${AllQuestions}" var="question">
                 <div class="panel panel-default">
                     <div class="panel-body">
