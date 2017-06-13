@@ -60,20 +60,21 @@ public class HomeController {
 	 * @param model model pytania
 	 * @return widok strony głównej z wylosowanym pytaniem
 	 */
-	@RequestMapping(value="/draw",method = RequestMethod.POST)
+	@RequestMapping(value="/draw",method = RequestMethod.GET)
 	public String drawQuestion(Model model){
 		List<Question> questions = null;
+		List<Question> question = null;
 		questions = questionService.getAllQuestions();
 		
 		int listsize = questions.size();
 		Random n = new Random();
-		Question question = questions.get(n.nextInt(listsize-1));
-		
+		question.add(questions.get(n.nextInt(listsize-1)));
+		System.out.println("MY OUTPUT     " + n.nextInt(listsize-1));
 		model.addAttribute("AllQuestions",question);
 		return "home";
 	}
 	
-	@RequestMapping(value="/sort/{string}",method = RequestMethod.GET)
+	@RequestMapping(value="/sort/{string}",method = RequestMethod.POST)
 	public String sortQuestions(@PathVariable("string") String string,Model model){
 		List<Question> questions = null;
 		

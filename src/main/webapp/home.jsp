@@ -18,7 +18,7 @@
                     </div>                     
                 </form:form>
                 	
-                <form:form >
+                <form:form class="from" method="POST" action="${contextPath}/sort">
                 	<div class="input-group">
                 		<select>
                 			<option value="topic" selected>Topic</option>
