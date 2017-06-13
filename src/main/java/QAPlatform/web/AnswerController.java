@@ -1,6 +1,7 @@
 package QAPlatform.web;
 
 import QAPlatform.model.Answer;
+import QAPlatform.model.ObservedQuestion;
 import QAPlatform.model.Question;
 import QAPlatform.service.*;
 import QAPlatform.validator.AnswerValidator;
@@ -35,6 +36,9 @@ public class AnswerController {
 	
 	@Autowired
 	private AnswerValidator answerValidator;
+
+	@Autowired
+	private ObservedQuestionService observedQuestionService;
 	
 	/**
 	 * Wyświetlenie pełnego pytania
@@ -46,7 +50,11 @@ public class AnswerController {
 	public String showAnswersToQuestion(@PathVariable("id") int id, Model model){
 		
 		Question question = questionService.getQuestionById(id);
-		
+		ObservedQuestion observedQuestion = observedQuestionService.getObservedQuestion(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+				question
+		);
+
 		List<Answer> answers = null;
 		answers = answerService.getAllAnswersByQuestionId(question);
 		
@@ -54,9 +62,33 @@ public class AnswerController {
 		System.out.println("Liczba odpowiedzi: "+answers.size());
 		model.addAttribute("allAnswers", answers);
 		model.addAttribute("question", question);
+		model.addAttribute("observedQuestion", observedQuestion);
 		model.addAttribute("newanswer", new Answer());
 		return "questionAnswers";
 		
+	}
+
+	@RequestMapping(value="/Question/{id}/observe", method=RequestMethod.GET)
+	public String observeQuestion(@PathVariable("id") int id){
+
+		ObservedQuestion observedQuestion = new ObservedQuestion(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+				questionService.getQuestionById(id)
+		);
+		observedQuestionService.observeQuestion(observedQuestion);
+
+		return "redirect:/Question/"+id;
+	}
+
+	@RequestMapping(value="/Question/{id}/stopObserve", method=RequestMethod.GET)
+	public String stopObserveQuestion(@PathVariable("id") int id){
+
+		observedQuestionService.removeQuestion(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+				questionService.getQuestionById(id)
+		);
+
+		return "redirect:/Question/"+id;
 	}
 
 	/**
