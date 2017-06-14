@@ -18,6 +18,25 @@
         			</c:forEach>
         				<li><a class="btn btn-default" href="${contextPath}/">All</a></li>
         			</ul>
+					<h3>Filters</h3>
+					<ul>
+						<li>
+							<c:choose>
+								<c:when test="${observed == false }">
+									<a href="${contextPath}/observe">
+											<%--<span class="glyphicon glyphicon-eye-open">--%>
+										<span>Observed question</span>
+											<%--</span>--%>
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${contextPath}/stopObserve">
+										<span>All question</span>
+									</a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</ul>
         		</div>   
            		<div class="col-lg-10">
            			<div class="content">
@@ -30,25 +49,8 @@
 		                    </div>                     
 		                </form:form>
 		                <br/>
-	                  	<div class="info">
-			                <c:choose>
-			                    <c:when test="${observed == false }">
-			                        <a href="${contextPath}/observe">
-			                        <%--<span class="glyphicon glyphicon-eye-open">--%>
-			                            <span>Observed question</span>
-			                        <%--</span>--%>
-			                        </a>
-			                    </c:when>
-			                    <c:otherwise>
-			                        <a href="${contextPath}/stopObserve">
-			                            <span>All question</span>
-			                        </a>
-			                    </c:otherwise>
-			
-			                </c:choose>
-                		</div>
-	        			<br> 
-	        			<h3><c:out value="${questionListType}" /></h3>        
+
+	        			<h3><c:out value="${questionListType}" /></h3>
 			            <c:forEach items="${AllQuestions}" var="question">
 			                <div class="panel panel-default">
 			                    <div class="panel-body">
