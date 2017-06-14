@@ -6,6 +6,8 @@ import QAPlatform.model.QuestionCategory;
 import QAPlatform.service.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -58,7 +60,7 @@ public class HomeController {
 			questionCategoriesService.addCategory("History");
 			createdCategories = true;
 		}
-		
+		String questionResultType="All questions";
 		boolean observed = false;
 		if(request.getSession().getAttribute("observed") != null){
 			observed = (boolean)request.getSession().getAttribute("observed");
@@ -75,18 +77,35 @@ public class HomeController {
 			for(ObservedQuestion observedQuestionObj: observedQuestions){
 				questions.add(observedQuestionObj.getQuestion());
 			}
-
+			questionResultType = "Observed questions";
 		}else{
 			questions = questionService.getAllQuestions();
 		}
 		
 		List<QuestionCategory> categories = questionCategoriesService.getAllCategories();
-		// ADD FILTERS
-
+		
+		int sort = -1;
+		if(request.getSession().getAttribute("sort") != null){
+			sort = (int)request.getSession().getAttribute("sort");
+		}
+		if(sort == 1){
+			Collections.sort(questions, new Comparator<Question>(){
+				public int compare(Question question1, Question other){
+					return question1.getTopic().compareTo(other.getTopic());
+				}
+			});
+		}else if(sort == 2){
+			Collections.sort(questions, new Comparator<Question>(){
+				public int compare(Question question1, Question other){
+					return question1.getUser().getUsername().compareTo(other.getUser().getUsername());
+				}
+			});
+		}
+		request.getSession().setAttribute("sort",-1);
 		model.addAttribute("AllQuestions", questions);
 		model.addAttribute("observed", observed);
 		model.addAttribute("allCategories", categories);
-		model.addAttribute("questionListType", "All Questions");
+		model.addAttribute("questionListType", questionResultType);
 		return "home";
 		
 	}
@@ -138,7 +157,12 @@ public class HomeController {
 		request.getSession().setAttribute("observed",true);
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping(value="/sort/{id}", method = RequestMethod.GET)
+	public String sort(HttpServletRequest request, @PathVariable("id") int id){
+		request.getSession().setAttribute("sort",id);
+		return "redirect:/";
+	}
 	@RequestMapping(value="/stopObserve", method = RequestMethod.GET)
 	public String stopObserve(HttpServletRequest request){
 

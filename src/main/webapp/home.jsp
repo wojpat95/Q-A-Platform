@@ -36,6 +36,13 @@
 								</c:otherwise>
 							</c:choose>
 						</li>
+						<li>
+						<span>Sort By:</span><br/>
+							<ul>
+							<li><a "class="categories-style" href="${contextPath}/sort/1">Topic</a></li>
+							<li><a "class="categories-style" href="${contextPath}/sort/2">User</a></li>
+							</ul>
+						</li>
 					</ul>
         		</div>   
            		<div class="col-lg-10">
@@ -48,6 +55,7 @@
 			                </span>
 		                    </div>                     
 		                </form:form>
+		 
 		                <br/>
 
 	        			<h3><c:out value="${questionListType}" /></h3>
