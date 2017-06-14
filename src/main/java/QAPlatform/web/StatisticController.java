@@ -37,6 +37,11 @@ public class StatisticController {
 		this.userService = userService;	     
 	}
 
+	/**
+     * @param model
+     *      model statystyk
+	 * @return widok statystyk
+	 */
 	@RequestMapping(value = "/Statistics", method = RequestMethod.GET)
 	public String getStatistics( Model model){
 		User currentUSer = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());

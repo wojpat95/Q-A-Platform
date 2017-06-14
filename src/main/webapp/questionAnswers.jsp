@@ -12,11 +12,22 @@
                     <div class="panel-body">
                         <div class="info">
                             <div class="left">
-                                <a href="${contextPath}/Question/edit/${question.getId()}">
-                                    <span class="glyphicon glyphicon-edit">
-                                        <span>Edytuj</span>
-                                    </span>
-                                </a>
+                                <c:choose>
+                                    <c:when test="${observedQuestion == null }">
+                                        <a href="${contextPath}/Question/${question.getId()}/observe">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                            <span>Observe</span>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${contextPath}/Question/${question.getId()}/stopObserve">
+                                            <span class="glyphicon glyphicon-eye-close"></span>
+                                            <span>Stop observe</span>
+
+                                        </a>
+                                    </c:otherwise>
+
+                                </c:choose>
                             </div>
                             <div class="right"><c:out value="${question.getUser().getUsername()}" /></div>                            
                         </div>
@@ -28,23 +39,11 @@
                         </p>
                         <div class="info">
                             <div class="right">
-                                <c:choose>
-                                    <c:when test="${observedQuestion == null }">
-                                        <a href="${contextPath}/Question/${question.getId()}/observe">
-                                            <span class="glyphicon glyphicon-eye-open">
-                                                <span>Observe</span>
-                                            </span>
-                                        </a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="${contextPath}/Question/${question.getId()}/stopObserve">
-                                            <span class="glyphicon glyphicon-eye-close">
-                                                <span>Stop Observe</span>
-                                            </span>
-                                        </a>
-                                    </c:otherwise>
-
-                                </c:choose></div>
+                                <a href="${contextPath}/Question/edit/${question.getId()}">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                    <span>Edit</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
             </div>    
