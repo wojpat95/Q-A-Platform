@@ -87,6 +87,10 @@ public class UserController {
         return "login";
     }
 
+    /**
+     * czyszczenie uzytkownikow
+     * @return przekierowanie do strony logowania
+     */
     @Transactional
     @RequestMapping(value="/clean", method = RequestMethod.GET)
     public String clean()
