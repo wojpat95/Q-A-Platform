@@ -1,8 +1,11 @@
 package QAPlatform.web;
 
 import QAPlatform.model.Question;
+import QAPlatform.model.QuestionCategory;
 import QAPlatform.service.*;
 import QAPlatform.validator.QuestionValidator;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +25,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class QuestionController {
 	private final QuestionService questionService;
-
 	private final UserService userService;
 
 	private final QuestionValidator questionValidator;
-
+	
+	@Autowired
+	private QuestionCategoryService questionCategoriesService;
 	@Autowired
 	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator) {
 		this.questionService = questionService;
@@ -42,7 +45,9 @@ public class QuestionController {
 	 */
 	@RequestMapping(value="/Question/new", method = RequestMethod.GET)
 	public String newQuestion(Model model){
+		List<QuestionCategory> categories = questionCategoriesService.getAllCategories();
 		model.addAttribute("newquestion", new Question()); 
+		model.addAttribute("allCategories", categories);
 		return "newQuestion";
 	}
 	
@@ -56,11 +61,11 @@ public class QuestionController {
 	 */
 	@RequestMapping(value="/Question/new",method =RequestMethod.POST)
 	public String newQuestion(@ModelAttribute("newquestion") Question question, BindingResult result){
-		
+		System.out.println(question.getCategory());
 		questionValidator.validate(question, result);
 		
 		if(result.hasErrors()){
-			return "newQuestion";
+			return "redirect:/Question/new";
 		}	
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -87,7 +92,7 @@ public class QuestionController {
 	 * @param result rezultat łączenia danych z modelem
 	 * @return widok formularza służący do edycji pytania lub strona główna w przypadku pomyślnej operacji
 	 */
-	@RequestMapping(value="/Question/edit", method=RequestMethod.POST)//
+	@RequestMapping(value="/Question/edit", method=RequestMethod.POST)
 	public String editQuestion(@ModelAttribute("editquestion") Question question, BindingResult result){
 		
 		questionValidator.validate(question,result);

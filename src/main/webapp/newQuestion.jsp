@@ -14,7 +14,15 @@
 
                     <div class="panel-body">
                         <form:form method="POST" modelAttribute="newquestion">
-
+							<spring:bind path="category">
+                                <div class="form-group">
+                                    <label for="category">Category:</label>
+                                    <form:select path="category">
+        							<form:options items="${allCategories}" itemLabel="name" itemValue="id"/>
+									</form:select>
+                                    <form:errors path="topic" class="errors alert alert-danger"></form:errors>
+                                </div>
+                            </spring:bind>
                             <spring:bind path="topic">
                                 <div class="form-group">
                                     <label for="topic">Topic:</label>

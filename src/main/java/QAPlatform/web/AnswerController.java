@@ -1,6 +1,7 @@
 package QAPlatform.web;
 
 import QAPlatform.model.Answer;
+import QAPlatform.model.ObservedQuestion;
 import QAPlatform.model.Question;
 import QAPlatform.service.*;
 import QAPlatform.validator.AnswerValidator;
@@ -24,18 +25,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AnswerController {
+
+	private final AnswerService answerService;
+
+	private final QuestionService questionService;
+
+    private final UserService userService;
+
+	private final AnswerValidator answerValidator;
+
+	private ObservedQuestionService observedQuestionService;
+
 	@Autowired
-	private AnswerService answerService;
-	
-	@Autowired
-	private QuestionService questionService;
-	
-	@Autowired
-    private UserService userService;
-	
-	@Autowired
-	private AnswerValidator answerValidator;
-	
+	public AnswerController(AnswerService answerService,
+							QuestionService questionService,
+							UserService userService,
+							AnswerValidator answerValidator,
+							ObservedQuestionService observedQuestionService){
+		this.answerService = answerService;
+		this.questionService = questionService;
+		this.userService = userService;
+		this.answerValidator = answerValidator;
+		this.observedQuestionService = observedQuestionService;
+	}
 	/**
 	 * Wyświetlenie pełnego pytania
 	 * @param id identyfikator pytania
@@ -46,7 +58,11 @@ public class AnswerController {
 	public String showAnswersToQuestion(@PathVariable("id") int id, Model model){
 		
 		Question question = questionService.getQuestionById(id);
-		
+		ObservedQuestion observedQuestion = observedQuestionService.getObservedQuestion(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+				question
+		);
+
 		List<Answer> answers = null;
 		answers = answerService.getAllAnswersByQuestionId(question);
 		
@@ -54,9 +70,33 @@ public class AnswerController {
 		System.out.println("Liczba odpowiedzi: "+answers.size());
 		model.addAttribute("allAnswers", answers);
 		model.addAttribute("question", question);
+		model.addAttribute("observedQuestion", observedQuestion);
 		model.addAttribute("newanswer", new Answer());
 		return "questionAnswers";
 		
+	}
+
+	@RequestMapping(value="/Question/{id}/observe", method=RequestMethod.GET)
+	public String observeQuestion(@PathVariable("id") int id){
+
+		ObservedQuestion observedQuestion = new ObservedQuestion(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+				questionService.getQuestionById(id)
+		);
+		observedQuestionService.observeQuestion(observedQuestion);
+
+		return "redirect:/Question/"+id;
+	}
+
+	@RequestMapping(value="/Question/{id}/stopObserve", method=RequestMethod.GET)
+	public String stopObserveQuestion(@PathVariable("id") int id){
+
+		observedQuestionService.removeQuestion(
+				userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()),
+				questionService.getQuestionById(id)
+		);
+
+		return "redirect:/Question/"+id;
 	}
 
 	/**

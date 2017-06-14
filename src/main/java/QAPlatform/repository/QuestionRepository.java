@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import QAPlatform.model.Question;
+import QAPlatform.model.QuestionCategory;
 import QAPlatform.model.User;
 
 /**
@@ -22,4 +23,10 @@ public interface QuestionRepository extends CrudRepository<Question,Long> {
 		 */
 		List<Question> findByTopicIgnoreCaseContaining(String topic);
 		List<Question> findByUser(User user);
+		/**
+		 * Znajdowanie pytań po kotegorii
+		 * @param category identyfikator kategorii
+		 * @return Lista pytań z danej kategorii
+		 */
+		List<Question> findByCategory(long category);
 }

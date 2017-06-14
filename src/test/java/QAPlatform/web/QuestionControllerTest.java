@@ -5,19 +5,17 @@ import static org.junit.Assert.*;
 
 import QAPlatform.model.Question;
 import QAPlatform.model.User;
-import QAPlatform.repository.QuestionRepository;
+import QAPlatform.service.ObservedQuestionServiceImpl;
 import QAPlatform.service.QuestionService;
 import QAPlatform.service.UserServiceImpl;
 import QAPlatform.validator.QuestionValidator;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
