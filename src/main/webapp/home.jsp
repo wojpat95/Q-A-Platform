@@ -63,10 +63,10 @@
 			                <div class="panel panel-default">
 			                    <div class="panel-body">
 			                        <h3>
-			                            <c:out value="${question.topic}" />
+			                            <div id="topic"><c:out value="${question.topic}" /></div>
 			                            <div class="right author"><c:out value="${question.getUser().getUsername()}" /></div>
 			                        </h3>
-			                        <p>
+			                        <p id="body">
 			                            <c:out value="${question.getBody()}" />
 			                        </p>
 			                        <div class="more"><a href="Question/${question.id}">Read more</a></div>

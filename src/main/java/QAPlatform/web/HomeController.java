@@ -36,15 +36,15 @@ public class HomeController {
 	
 	private final UserService userService;
 
-	@Autowired
-	private QuestionCategoryService questionCategoriesService;
+	private final QuestionCategoryService questionCategoriesService;
 	
 
 	@Autowired
-	public HomeController(QuestionService questionService, ObservedQuestionService observedQuestionService, UserService userService) {
+	public HomeController(QuestionService questionService, ObservedQuestionService observedQuestionService, UserService userService, QuestionCategoryService questionCategoriesService) {
 		this.questionService = questionService;
 		this.observedQuestionService = observedQuestionService;
 		this.userService = userService;
+		this.questionCategoriesService = questionCategoriesService;
 	}
 	boolean createdCategories = false;
 	/**

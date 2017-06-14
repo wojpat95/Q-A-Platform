@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import QAPlatform.model.Question;
 import QAPlatform.model.User;
 import QAPlatform.service.ObservedQuestionServiceImpl;
+import QAPlatform.service.QuestionCategoryService;
 import QAPlatform.service.QuestionService;
 import QAPlatform.service.UserServiceImpl;
 import QAPlatform.validator.QuestionValidator;
@@ -37,11 +38,14 @@ public class QuestionControllerTest {
     private QuestionValidator questionValidator;
     @Autowired
     private QuestionController questionController;
+    @Autowired
+    private QuestionCategoryService questionCategoriesServiceMock;
     @Before
     public void setUp() {
         questionServiceMock = mock(QuestionService.class);
         questionValidator = mock(QuestionValidator.class);
-        mockMvc = MockMvcBuilders.standaloneSetup(new QuestionController(questionServiceMock,userServiceMock,questionValidator)).build();
+        questionCategoriesServiceMock = mock(QuestionCategoryService.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(new QuestionController(questionServiceMock,userServiceMock,questionValidator,questionCategoriesServiceMock)).build();
     }
 
     /**
@@ -134,8 +138,8 @@ public class QuestionControllerTest {
 
     	when(result.hasErrors()).thenReturn(true);
     	
-    	QuestionController qc = new QuestionController(questionServiceMock,userServiceMock, questionValidator);
-    	assertEquals(qc.newQuestion(q, result),"newQuestion");
+    	QuestionController qc = new QuestionController(questionServiceMock,userServiceMock, questionValidator,questionCategoriesServiceMock);
+    	assertEquals(qc.newQuestion(q, result),"redirect:/Question/new/");
     	
         verify(questionValidator, times(1)).validate(q,result);
         verify(result, times(1)).hasErrors();
@@ -155,7 +159,7 @@ public class QuestionControllerTest {
     	doNothing().when(questionServiceMock).addQuestion(q);
     	when(result.hasErrors()).thenReturn(true);
     	
-    	QuestionController qc = new QuestionController(questionServiceMock, userServiceMock, questionValidator);
+    	QuestionController qc = new QuestionController(questionServiceMock, userServiceMock, questionValidator,questionCategoriesServiceMock);
     	assertEquals(qc.editQuestion(q, result),"editQuestion");
     	
         verify(questionValidator, times(1)).validate(q,result);
