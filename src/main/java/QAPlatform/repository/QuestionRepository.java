@@ -23,10 +23,14 @@ public interface QuestionRepository extends CrudRepository<Question,Long> {
 		 */
 		List<Question> findByTopicIgnoreCaseContaining(String topic);
 		List<Question> findByUser(User user);
+<<<<<<< HEAD
 		/**
 		 * Znajdowanie pytań po kotegorii
 		 * @param category identyfikator kategorii
 		 * @return Lista pytań z danej kategorii
 		 */
 		List<Question> findByCategory(long category);
+=======
+		List<Question> findAllByOrderByTopic();
+>>>>>>> 64d20d6e1b960b9b69ec4a8b9a097cbeebfe63f1
 }

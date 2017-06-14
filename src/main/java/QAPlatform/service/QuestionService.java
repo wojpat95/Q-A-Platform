@@ -40,11 +40,34 @@ public class QuestionService {
 		questionRepository.findAll().forEach(questions::add);
 		return questions;
 	}
+<<<<<<< HEAD
 	public List<Question> searchQuestionByCategory(long category){
 		List<Question> questions = new ArrayList<>();
 		questionRepository.findByCategory(category).forEach(questions::add);
 		return questions;
 	}
+=======
+	
+	/**
+	 * zwraca listę wszystkich pytań posortowanych według Topic
+	 * @return Lista wszystkich posortowanych pytań
+	 */
+	public List<Question> getQuestionsSortedByTopic(){
+		List<Question> questions = new ArrayList<>();
+		questionRepository.findAllByOrderByTopic().forEach(questions::add);
+		return questions;
+	}
+	
+	/**
+	 * zwraca listę wszystkich pytań posortowanych według Category
+	 * @return Lista wszystkich posortowanych pytań
+	 */
+	//public List<Question> getQuestionsSortedByCategory(){
+	//	List<Question> questions = new ArrayList<>();
+	//	questionRepository.findAllByOrderByCategory().forEach(questions::add);
+	//	return questions;
+	//}
+>>>>>>> 64d20d6e1b960b9b69ec4a8b9a097cbeebfe63f1
 	/**
 	 * Zwraca listę pytań uzytkownika
 	 * @param userId identyfikato uzytkownika

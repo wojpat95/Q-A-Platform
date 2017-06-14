@@ -92,6 +92,7 @@
 	                </span>
                     </div>                     
                 </form:form>
+<<<<<<< HEAD
         <br>
             <div class="info">
                 <c:choose>
@@ -111,6 +112,19 @@
                 </c:choose></div>
         </div>
         <br>
+=======
+                	
+                <form:form class="from" method="POST" action="${contextPath}/sort">
+                	<div class="input-group">
+                		<select>
+                			<option value="topic" selected>Topic</option>
+                		</select>
+                		<button class="btn btn-default" type="submit">Sort</button>
+                	</div>
+                </form:form>
+        
+        <br>            
+>>>>>>> 64d20d6e1b960b9b69ec4a8b9a097cbeebfe63f1
             <c:forEach items="${AllQuestions}" var="question">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -127,10 +141,16 @@
                     </div>
                 </div>                
             </c:forEach>
+<<<<<<< HEAD
 			
 			<form:form class="form" method="GET" action="${contextPath}/draw">
                 	<button class="btn btn-default" type="submit">Draw Question></button> 
 			</form:form>
+=======
+                <form:form class="form" method="GET" action="${contextPath}/draw">
+                	<button class="btn btn-default" type="submit">Draw Question></button> 
+                </form:form>
+>>>>>>> 64d20d6e1b960b9b69ec4a8b9a097cbeebfe63f1
         </div>
     </jsp:body>
 </t:genericpage>
