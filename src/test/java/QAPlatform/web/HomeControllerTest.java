@@ -5,10 +5,7 @@ import java.util.List;
 
 import QAPlatform.model.Question;
 import QAPlatform.repository.QuestionRepository;
-import QAPlatform.service.ObservedQuestionService;
-import QAPlatform.service.QuestionService;
-import QAPlatform.service.UserService;
-import QAPlatform.service.UserServiceImpl;
+import QAPlatform.service.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +45,17 @@ public class HomeControllerTest {
     private ObservedQuestionService observedQuestionService;
 
     @Autowired
+    private QuestionCategoryService questionCategoriesServiceMock;
+
+    @Autowired
     private HomeController homeController;
 
     @Before
     public void setUp() {
         questionRepositoryMock = mock(QuestionRepository.class);
         questionServiceMock = mock(QuestionService.class);
-        mockMvc = MockMvcBuilders.standaloneSetup(new HomeController(questionServiceMock, observedQuestionService, userService)).build();
+        questionCategoriesServiceMock = mock(QuestionCategoryService.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(new HomeController(questionServiceMock, observedQuestionService, userService, questionCategoriesServiceMock)).build();
 
         List<Question> list = new ArrayList<Question>();
         list.add(mock(Question.class));
@@ -121,7 +122,7 @@ public class HomeControllerTest {
         Model model = mock(Model.class);
 
         when(questionServiceMock.searchQuestionByTopic(anyString())).thenReturn(list);
-        HomeController homeController = new HomeController(questionServiceMock, observedQuestionService, userService);
+        HomeController homeController = new HomeController(questionServiceMock, observedQuestionService, userService, questionCategoriesServiceMock);
         assertEquals(homeController.home(anyString(),model),"home");
 
         verify(questionServiceMock, times(1)).searchQuestionByTopic(anyString());
