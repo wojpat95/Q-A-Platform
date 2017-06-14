@@ -20,6 +20,10 @@ public class ObservedQuestionServiceImpl implements ObservedQuestionService {
     @Autowired
     private ObservedQuestionRepository observedQuestionRepository;
 
+    public ObservedQuestionServiceImpl(ObservedQuestionRepository observedQuestionRepository){
+        this.observedQuestionRepository = observedQuestionRepository;
+    }
+
     @Override
     public List<ObservedQuestion> getAllObservedQuestions(User user) {
         List<ObservedQuestion> observedQuestions = new ArrayList<>();

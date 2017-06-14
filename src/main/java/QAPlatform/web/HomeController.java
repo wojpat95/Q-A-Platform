@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +51,9 @@ public class HomeController {
 
 		if(observed){
 			questions = new ArrayList<>();
+			Authentication a = SecurityContextHolder.getContext().getAuthentication();
 			List<ObservedQuestion> observedQuestions = observedQuestionService.getAllObservedQuestions(
-					userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+					userService.findByUsername(a.getName())
 					);
 			for(ObservedQuestion observedQuestionObj: observedQuestions){
 				questions.add(observedQuestionObj.getQuestion());

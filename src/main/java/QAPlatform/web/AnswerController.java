@@ -25,21 +25,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AnswerController {
-	@Autowired
-	private AnswerService answerService;
-	
-	@Autowired
-	private QuestionService questionService;
-	
-	@Autowired
-    private UserService userService;
-	
-	@Autowired
-	private AnswerValidator answerValidator;
+
+	private final AnswerService answerService;
+
+	private final QuestionService questionService;
+
+    private final UserService userService;
+
+	private final AnswerValidator answerValidator;
+
+	private ObservedQuestionService observedQuestionService;
 
 	@Autowired
-	private ObservedQuestionService observedQuestionService;
-	
+	public AnswerController(AnswerService answerService,
+							QuestionService questionService,
+							UserService userService,
+							AnswerValidator answerValidator,
+							ObservedQuestionService observedQuestionService){
+		this.answerService = answerService;
+		this.questionService = questionService;
+		this.userService = userService;
+		this.answerValidator = answerValidator;
+		this.observedQuestionService = observedQuestionService;
+	}
 	/**
 	 * Wyświetlenie pełnego pytania
 	 * @param id identyfikator pytania
