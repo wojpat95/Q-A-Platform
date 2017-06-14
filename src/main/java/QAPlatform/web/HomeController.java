@@ -6,7 +6,10 @@ import QAPlatform.model.QuestionCategory;
 import QAPlatform.service.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,16 +30,18 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class HomeController {
 	private final QuestionService questionService;
-
 	private final ObservedQuestionService observedQuestionService;
-	
 	private final UserService userService;
 
+
 	@Autowired
+
 	private QuestionCategoryService questionCategoriesService;
 	
 
 	@Autowired
+
+
 	public HomeController(QuestionService questionService, ObservedQuestionService observedQuestionService, UserService userService) {
 		this.questionService = questionService;
 		this.observedQuestionService = observedQuestionService;
@@ -48,8 +53,9 @@ public class HomeController {
 	 * 		model zawierający listę pytań
 	 * @return widok strony głównej z listą wszystkich zadanych pytań
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model, HttpServletRequest request){
+	@RequestMapping(value = "/{string}", method = RequestMethod.GET)
+	public String home(@PathVariable("string") String sortKey,Model model, HttpServletRequest request){
+
 		if(!createdCategories){
 			questionCategoriesService.addCategory("General");
 			questionCategoriesService.addCategory("Sport");
@@ -57,6 +63,7 @@ public class HomeController {
 			createdCategories = true;
 		}
 		
+
 		boolean observed = false;
 		if(request.getSession().getAttribute("observed") != null){
 			observed = (boolean)request.getSession().getAttribute("observed");
@@ -76,14 +83,42 @@ public class HomeController {
 		}else{
 			questions = questionService.getAllQuestions();
 		}
+
 		
 		List<QuestionCategory> categories = questionCategoriesService.getAllCategories();
-		// ADD FILTERS
 
+		// ADD FILTERS
+		
+		boolean sort = false;
+		if(request.getSession().getAttribute("sort") != null){
+			sort = (boolean)request.getSession().getAttribute("sort");
+		}
+		
+		switch(sortKey){
+		case "topic":
+			Collections.sort(questions, new Comparator<Question>(){
+				public int compare(Question question1, Question other){
+					return question1.getTopic().compareTo(other.getTopic());
+				}
+			});
+			break;
+		case "userName":
+			Collections.sort(questions, new Comparator<Question>(){
+				public int compare(Question question1, Question other){
+					return question1.getUser().getUsername().compareTo(other.getUser().getUsername());
+				}
+			});
+			break;
+		default:
+			//	throw new Exception("Uncorrect sort key");
+			break;
+		}
 		model.addAttribute("AllQuestions", questions);
 		model.addAttribute("observed", observed);
+
 		model.addAttribute("allCategories", categories);
 		model.addAttribute("questionListType", "All Questions");
+
 		return "home";
 		
 	}
@@ -127,4 +162,22 @@ public class HomeController {
 
 		return "redirect:/";
 	}
+	
+	/**
+	 * 
+	 * @param model model pytania
+	 * @return widok strony głównej z wylosowanym pytaniem
+	 */
+	@RequestMapping(value="/draw",method = RequestMethod.POST)
+	public String drawQuestion(Model model){
+		List<Question> questions = null;
+		questions = questionService.getAllQuestions();
+		
+		int listsize = questions.size();
+		Random n = new Random();
+		Question question = questions.get(n.nextInt(listsize-1));
+		
+		model.addAttribute("AllQuestions",question);
+		return "home";
+}
 }
