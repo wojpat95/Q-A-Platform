@@ -29,4 +29,6 @@ public interface QuestionRepository extends CrudRepository<Question,Long> {
 		 * @return Lista pytań z danej kategorii
 		 */
 		List<Question> findByCategory(long category);
+		
+		List<Question> findAllByOrderByTopic();
 }

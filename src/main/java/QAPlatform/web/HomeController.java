@@ -6,7 +6,10 @@ import QAPlatform.model.QuestionCategory;
 import QAPlatform.service.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -45,8 +48,8 @@ public class HomeController {
 	}
 	boolean createdCategories = false;
 	/**
-	 * @param model
-	 * 		model zawierający listę pytań
+	 * @param model model zawierający listę pytań
+	 * @param request zapytanie
 	 * @return widok strony głównej z listą wszystkich zadanych pytań
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -57,7 +60,7 @@ public class HomeController {
 			questionCategoriesService.addCategory("History");
 			createdCategories = true;
 		}
-		
+		String questionResultType="All questions";
 		boolean observed = false;
 		if(request.getSession().getAttribute("observed") != null){
 			observed = (boolean)request.getSession().getAttribute("observed");
@@ -74,20 +77,53 @@ public class HomeController {
 			for(ObservedQuestion observedQuestionObj: observedQuestions){
 				questions.add(observedQuestionObj.getQuestion());
 			}
-
+			questionResultType = "Observed questions";
 		}else{
 			questions = questionService.getAllQuestions();
 		}
 		
 		List<QuestionCategory> categories = questionCategoriesService.getAllCategories();
-		// ADD FILTERS
-
+		
+		int sort = -1;
+		if(request.getSession().getAttribute("sort") != null){
+			sort = (int)request.getSession().getAttribute("sort");
+		}
+		if(sort == 1){
+			Collections.sort(questions, new Comparator<Question>(){
+				public int compare(Question question1, Question other){
+					return question1.getTopic().compareTo(other.getTopic());
+				}
+			});
+		}else if(sort == 2){
+			Collections.sort(questions, new Comparator<Question>(){
+				public int compare(Question question1, Question other){
+					return question1.getUser().getUsername().compareTo(other.getUser().getUsername());
+				}
+			});
+		}
+		request.getSession().setAttribute("sort",-1);
 		model.addAttribute("AllQuestions", questions);
 		model.addAttribute("observed", observed);
 		model.addAttribute("allCategories", categories);
-		model.addAttribute("questionListType", "All Questions");
+		model.addAttribute("questionListType", questionResultType);
 		return "home";
 		
+	}
+		/**
+		 * 
+		 * @param model model pytania
+		 * @return widok strony głównej z wylosowanym pytaniem
+	 */
+		@RequestMapping(value="/random",method = RequestMethod.GET)
+		public String drawQuestion(Model model){
+			List<Question> allQuestions = null;
+			allQuestions = questionService.getAllQuestions();
+			
+			int listsize =allQuestions.size();
+			Random n = new Random();
+			Question question = allQuestions.get(n.nextInt(listsize));
+
+			return "redirect:/Question/"+question.getId();
 	}
 	/**
 	 * @param topic temat, wg którego wyszukiwane są pytania
@@ -121,7 +157,12 @@ public class HomeController {
 		request.getSession().setAttribute("observed",true);
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping(value="/sort/{id}", method = RequestMethod.GET)
+	public String sort(HttpServletRequest request, @PathVariable("id") int id){
+		request.getSession().setAttribute("sort",id);
+		return "redirect:/";
+	}
 	@RequestMapping(value="/stopObserve", method = RequestMethod.GET)
 	public String stopObserve(HttpServletRequest request){
 

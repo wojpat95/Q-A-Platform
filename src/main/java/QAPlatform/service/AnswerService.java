@@ -38,7 +38,7 @@ public class AnswerService{
 	}
 	/**
 	 * Zwraca listę pytań uzytkownika
-	 * @param userId identyfikato uzytkownika
+	 * @param user uzytkownik
 	 * @return lista pytan uzytkownika
 	 */
 	public List<Answer> getByUserId(User user)
