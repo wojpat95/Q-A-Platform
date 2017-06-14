@@ -7,6 +7,7 @@ import QAPlatform.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -88,6 +89,22 @@ public class HomeController {
 		model.addAttribute("questionListType", "All Questions");
 		return "home";
 		
+	}
+		/**
+		 * 
+		 * @param model model pytania
+		 * @return widok strony głównej z wylosowanym pytaniem
+	 */
+		@RequestMapping(value="/random",method = RequestMethod.GET)
+		public String drawQuestion(Model model){
+			List<Question> allQuestions = null;
+			allQuestions = questionService.getAllQuestions();
+			
+			int listsize =allQuestions.size();
+			Random n = new Random();
+			Question question = allQuestions.get(n.nextInt(listsize));
+
+			return "redirect:/Question/"+question.getId();
 	}
 	/**
 	 * @param topic temat, wg którego wyszukiwane są pytania

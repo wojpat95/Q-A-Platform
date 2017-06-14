@@ -65,7 +65,7 @@ public class QuestionController {
 		questionValidator.validate(question, result);
 		
 		if(result.hasErrors()){
-			return "redirect:/Question/new";
+			return "redirect:/Question/new/";
 		}	
 
 		question.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));

@@ -115,7 +115,7 @@ public class AnswerController {
 		answerValidator.validate(answer,result);
 		
 		if(result.hasErrors()){
-			return "newAnswer";
+			return "redirect:/Question/"+answer.getQuestion().getId();
 		}
 
 		answer.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));

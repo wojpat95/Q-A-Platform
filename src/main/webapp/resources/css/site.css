@@ -12,13 +12,29 @@
         margin-top: 100px;     
     }
 }
-
+.random-button{
+	float:right;
+}
 .content
 {
     overflow: hidden;
 }
 ul {
   list-style-type: none;
+}
+ul li{
+	margin-top:20px;
+	margin-left:0px;
+}
+#categoriesHeader{
+	margin-left:30px;
+	margin-bottom:0px;
+}
+.categories-style{
+	text-decoration: none;
+	text-size: 1.4em;
+	border-left: 3px solid black;
+	padding:5px;
 }
 @media screen and (min-width: 600px)
 {

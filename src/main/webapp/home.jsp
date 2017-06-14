@@ -10,13 +10,13 @@
         <div class="container">
         	<div class="row">
         		<div class="col-lg-2">
-        			<h3>Categories</h3>
+        			<h3 id="categoriesHeader">Categories</h3>
         			<br/>
         			<ul>
         			<c:forEach items="${allCategories}" var="category">
-        				<li><a class="btn btn-default" href="${contextPath}/show/${category.getId()}"><c:out value="${category.getName()}" /></a></li>
+        				<li><a class="categories-style" href="${contextPath}/show/${category.getId()}"><c:out value="${category.getName()}" /></a></li>
         			</c:forEach>
-        				<li><a class="btn btn-default" href="${contextPath}/">All</a></li>
+        				<li><a class="categories-style" href="${contextPath}/">All</a></li>
         			</ul>
         		</div>   
            		<div class="col-lg-10">
@@ -53,7 +53,7 @@
 			                <div class="panel panel-default">
 			                    <div class="panel-body">
 			                        <h3>
-			                            <c:out value="${question.topic}" /><c:out value="${question.getCategory()}" />
+			                            <c:out value="${question.topic}" />
 			                            <div class="right author"><c:out value="${question.getUser().getUsername()}" /></div>
 			                        </h3>
 			                        <p>
@@ -63,6 +63,7 @@
 			                    </div>
 			                </div>                
 			            </c:forEach>
+			 		<a class="random-button" href="${contextPath}/random">Random question</a>
 		            </div>
            		</div>
         	</div>

@@ -86,4 +86,13 @@ public class QuestionService {
 	public void removeQuestion(int id){
 		questionRepository.delete((long)id);
 	}
+		/**
+		 * zwraca listę wszystkich pytań posortowanych według Topic
+		 * @return Lista wszystkich posortowanych pytań
+		 */
+		public List<Question> getQuestionsSortedByTopic(){
+			List<Question> questions = new ArrayList<>();
+			questionRepository.findAllByOrderByTopic().forEach(questions::add);
+			return questions;
+		}
 }
