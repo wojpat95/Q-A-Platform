@@ -47,7 +47,7 @@ public class QuestionService {
 	}
 	/**
 	 * Zwraca listę pytań uzytkownika
-	 * @param userId identyfikato uzytkownika
+	 * @param user uzytkownik
 	 * @return lista pytan uzytkownika
 	 */
 	public List<Question> getByUserId(User user)

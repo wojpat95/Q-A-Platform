@@ -46,8 +46,8 @@ public class HomeController {
 	}
 	boolean createdCategories = false;
 	/**
-	 * @param model
-	 * 		model zawierający listę pytań
+	 * @param model model zawierający listę pytań
+	 * @param request zapytanie
 	 * @return widok strony głównej z listą wszystkich zadanych pytań
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
