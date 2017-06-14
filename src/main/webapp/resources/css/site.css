@@ -19,10 +19,10 @@
 {
     overflow: hidden;
 }
-ul {
+.container ul {
   list-style-type: none;
 }
-ul li{
+.container ul li{
 	margin-top:20px;
 	margin-left:0px;
 }
