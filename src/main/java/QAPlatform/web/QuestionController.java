@@ -28,14 +28,14 @@ public class QuestionController {
 	private final UserService userService;
 
 	private final QuestionValidator questionValidator;
-	
+
+	private final QuestionCategoryService questionCategoriesService;
 	@Autowired
-	private QuestionCategoryService questionCategoriesService;
-	@Autowired
-	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator) {
+	public QuestionController(QuestionService questionService, UserService userService, QuestionValidator questionValidator, QuestionCategoryService questionCategoriesService) {
 		this.questionService = questionService;
 		this.userService = userService;
 		this.questionValidator = questionValidator;
+		this.questionCategoriesService = questionCategoriesService;
 	}
 
 	/**
