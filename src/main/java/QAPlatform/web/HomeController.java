@@ -118,12 +118,15 @@ public class HomeController {
 		public String drawQuestion(Model model){
 			List<Question> allQuestions = null;
 			allQuestions = questionService.getAllQuestions();
+			if(allQuestions.size() > 0){
+				int listsize =allQuestions.size();
+				Random n = new Random();
+				Question question = allQuestions.get(n.nextInt(listsize));
+				return "redirect:/Question/"+question.getId();
+			}
 			
-			int listsize =allQuestions.size();
-			Random n = new Random();
-			Question question = allQuestions.get(n.nextInt(listsize));
-
-			return "redirect:/Question/"+question.getId();
+			return "redirect:/";
+			
 	}
 	/**
 	 * @param topic temat, wg którego wyszukiwane są pytania
