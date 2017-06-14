@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,7 +28,8 @@ public class Question {
 	private String body;
 	private long likes;
 	private long dislikes;
-	private String Category;
+	
+	private long category;
 	//private String Time;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -131,14 +133,14 @@ public class Question {
 	/**
 	 * @return zwraca kategorię
 	 */
-	public String getCategory() {
-		return Category;
+	public long getCategory() {
+		return category;
 	}
 	/**
 	 * @param category ustawia kategorię
 	 */
-	public void setCategory(String category) {
-		Category = category;
+	public void setCategory(long category) {
+		this.category = category;
 	}
 	
 }
