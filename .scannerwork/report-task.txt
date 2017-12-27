@@ -2,5 +2,5 @@ projectKey=org.QAPlatform:QAPlatform
 serverUrl=http://localhost:9000/sonar
 serverVersion=6.4.0.25310
 dashboardUrl=http://localhost:9000/sonar/dashboard/index/org.QAPlatform:QAPlatform
-ceTaskId=AVymdKygTqU9ycFEmLjl
-ceTaskUrl=http://localhost:9000/sonar/api/ce/task?id=AVymdKygTqU9ycFEmLjl
+ceTaskId=AVym14fzE2OwolH3dot4
+ceTaskUrl=http://localhost:9000/sonar/api/ce/task?id=AVym14fzE2OwolH3dot4

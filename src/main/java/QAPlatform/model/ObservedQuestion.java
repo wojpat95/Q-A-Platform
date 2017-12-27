@@ -33,6 +33,9 @@ public class ObservedQuestion {
         this.question = question;
     }
 
+    public ObservedQuestion(){
+
+    }
     /**
      *
      * @return
